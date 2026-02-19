@@ -34,7 +34,7 @@ export default function StartPage() {
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-12 md:px-6">
-      <h1 className="font-display text-3xl font-bold">Start here</h1>
+      <h1 className="font-display text-3xl font-normal tracking-tight text-foreground">Start here</h1>
       <p className="mt-2 text-muted-foreground">
         Tell us your goal and we’ll recommend a program and next step.
       </p>

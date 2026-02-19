@@ -32,10 +32,14 @@ const config: Config = {
           foreground: 'hsl(var(--accent-foreground))',
         },
         destructive: 'hsl(var(--destructive))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
       },
       fontFamily: {
-        sans: ['system-ui', 'sans-serif'],
-        display: ['system-ui', 'sans-serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'var(--font-sans)', 'system-ui', 'sans-serif'],
       },
     },
   },

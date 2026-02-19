@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-12 md:px-6">
-      <h1 className="font-display text-3xl font-bold">Events</h1>
+      <h1 className="font-display text-3xl font-normal tracking-tight text-foreground">Events</h1>
       <p className="mt-2 text-muted-foreground">
         Register for upcoming camps and clinics.
       </p>

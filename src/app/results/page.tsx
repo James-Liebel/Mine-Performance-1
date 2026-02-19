@@ -17,7 +17,7 @@ const metricDefinitions: { name: string; description: string }[] = [
 export default function ResultsPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-12 md:px-6">
-      <h1 className="font-display text-3xl font-bold">Results & Leaderboard</h1>
+      <h1 className="font-display text-3xl font-normal tracking-tight text-foreground">Results & Leaderboard</h1>
       <p className="mt-2 text-muted-foreground">
         {leaderboardHighlights.description}
       </p>

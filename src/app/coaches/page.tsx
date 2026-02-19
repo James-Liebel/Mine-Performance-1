@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function CoachesPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-12 md:px-6">
-      <h1 className="font-display text-3xl font-bold">Coaches</h1>
+      <h1 className="font-display text-3xl font-normal tracking-tight text-foreground">Coaches</h1>
       <p className="mt-2 text-muted-foreground">
         Our staff bring credentials and experience to every session.
       </p>

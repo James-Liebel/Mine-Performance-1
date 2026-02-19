@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Bebas_Neue } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-geist-sans' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'], variable: '--font-display' });
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { site, contact } from '@/lib/content';
@@ -46,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
       <head>
         <script
           type="application/ld+json"

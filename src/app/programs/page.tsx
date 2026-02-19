@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ProgramsPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-12 md:px-6">
-      <h1 className="font-display text-3xl font-bold">Programs</h1>
+      <h1 className="font-display text-3xl font-normal tracking-tight text-foreground">Programs</h1>
       <p className="mt-2 text-muted-foreground">
         Choose the right program for your goals. Book an evaluation to get started.
       </p>

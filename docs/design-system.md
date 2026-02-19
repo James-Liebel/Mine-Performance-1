@@ -10,28 +10,28 @@
 
 ## 2. Tokens
 
-### 2.1 Color
+### 2.1 Color (Mine Performance Academy — original style)
 
-| Token | Use | Example (Tailwind) |
-|-------|-----|--------------------|
-| **Primary** | Brand, primary CTA | `bg-primary` / `text-primary` — dark, high contrast (e.g. navy or black) |
-| **Primary foreground** | Text on primary | `text-primary-foreground` — white |
-| **Accent** | Secondary CTA, highlights | `bg-accent` — e.g. gold/amber for “premium” |
-| **Background** | Page/section background | `bg-background` — white or off-white |
-| **Muted** | Secondary text, subtle UI | `text-muted-foreground`, `bg-muted` |
-| **Destructive** | Errors, destructive actions | `bg-destructive` |
-| **Border** | Cards, dividers | `border-border` |
+| Token | Use | Value |
+|-------|-----|--------|
+| **Primary** | Brand, primary CTA, nav logo | Dark navy `hsl(220 35% 18%)` |
+| **Primary foreground** | Text on primary buttons | Warm white |
+| **Accent** | Secondary CTA, “Start here,” labels | Gold/amber `hsl(38 92% 48%)` |
+| **Background** | Page background | Warm off-white `hsl(40 20% 98%)` |
+| **Muted** | Section alt, secondary text | Warm gray `hsl(40 15% 94%)` |
+| **Border** | Cards, dividers | Warm border `hsl(40 15% 88%)` |
+| **Card** | Card background | White |
 
 **Contrast:** All text and CTAs meet WCAG AA (4.5:1 normal, 3:1 large).
 
 ### 2.2 Typography
 
-| Role | Use | Size / weight |
+| Role | Use | Implementation |
 |------|-----|----------------|
-| **Font sans** | Body, UI | e.g. system-ui or Inter — 16px base |
-| **Font display** | Headlines | Strong, slightly condensed optional (e.g. font-display) |
-| **H1** | Page title | 2.25rem–3rem, bold |
-| **H2** | Section title | 1.875rem, bold |
+| **Font sans** | Body, UI | Inter — 16px base |
+| **Font display** | Headlines, logo | Bebas Neue — condensed, athletic |
+| **H1** | Page title | `font-display` 2.25rem–3rem, normal tracking-tight |
+| **H2** | Section title | `font-display` 1.875rem, normal |
 | **H3** | Card/subsection | 1.25rem, semibold |
 | **Body** | Paragraphs | 1rem, normal |
 | **Small** | Captions, labels | 0.875rem |

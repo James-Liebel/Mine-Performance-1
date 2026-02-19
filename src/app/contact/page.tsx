@@ -21,7 +21,7 @@ const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(addressL
 export default function ContactPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-12 md:px-6">
-      <h1 className="font-display text-3xl font-bold">Contact</h1>
+      <h1 className="font-display text-3xl font-normal tracking-tight text-foreground">Contact</h1>
       <p className="mt-2 text-muted-foreground">
         Visit us or send a message.
       </p>
