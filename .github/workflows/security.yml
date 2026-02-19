@@ -1,0 +1,30 @@
+# Security: secret scan + dependency audit (fail on Critical).
+# Before release, run npm run security:audit and address High where possible (see docs/security-checklist.md).
+name: Security
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Secret scan
+        run: npm run security:secrets
+
+      - name: Dependency audit (fail on Critical)
+        run: npm audit --audit-level=critical
