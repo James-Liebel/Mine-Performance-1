@@ -17,7 +17,7 @@ interface ExtractedCoach {
   bio?: string;
   categories: string[];
   image?: string | null;
-  statstakPath: string;
+  ctaPath: string;
 }
 
 async function main() {
@@ -48,7 +48,7 @@ async function main() {
             name: name.trim(),
             bio: bio?.trim() || undefined,
             categories: categories.length ? categories : ['Training'],
-            statstakPath: '/trainers',
+            ctaPath: '/contact',
           });
         }
       }
@@ -71,7 +71,7 @@ async function main() {
           bio: bio?.trim(),
           categories: categories.length ? [...new Set(categories)] : ['Training'],
           image: img || null,
-          statstakPath: '/trainers',
+          ctaPath: '/contact',
         });
       }
     }
@@ -85,7 +85,7 @@ async function main() {
           coaches.push({
             name: name.trim(),
             categories: ['Training'],
-            statstakPath: '/trainers',
+            ctaPath: '/contact',
           });
         }
       }

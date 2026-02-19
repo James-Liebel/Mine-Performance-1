@@ -8,6 +8,66 @@ The current Mine Performance Academy experience lives on StatStak’s platform (
 
 ---
 
+## Phase 1 — Audit (from live exploration)
+
+**Evidence source:** `scripts/explore.ts` run 2026-02-19; output in `artifacts/explore/2026-02-19T03-29-10/` (pages.json, links.json, screenshots/desktop/, screenshots/mobile/). References below use screenshot filenames (e.g. `index.png`, `trainers.png`).
+
+### Current information architecture (from exploration)
+
+```
+/ (Home)
+├── UPCOMING EVENTS → "Sign up now" (event cards)
+├── PACKAGES → "View packages"
+├── TRAINERS → filter by category (Pitching, Hitting, Catching, etc.) → trainer cards "Book now"
+├── JOIN Mine Performance Academy (interest form: Lessons, Rentals, Events, Memberships, etc.)
+├── Footer: Privacy policy, User agreement, Reset password, Support, Hours, Contact (4999 Houston Rd, Florence KY; (513) 384-3840; Ryan@mineperformanceacademy.com)
+/trainers → H1 "Trainers"; filters; 5 trainers (Nick Gooden, Braden Pickett, Marc Carney, Gavin Sunderman, Travis Clark)
+/events → H1 "Upcoming"; filter; event cards (Winter Training Program, Athlete Profile, etc.) → "Sign up now"
+/leaderboard → metrics (60yd, C Velo, Exit Velo, FB Velo); no H1
+/privacy/..., /terms/..., /reset_pw/..., /support/... (footer links)
+```
+
+Top-level nav observed in visible text: Home, About Us, Scheduling (dropdown), Member Registration, Leaderboard, Login, Sign up. No dedicated "Programs" or "Contact" in main nav; JOIN form is the main conversion surface on home.
+
+### Top 10 UX issues (ranked by severity + impact)
+
+| # | Severity | Issue | Evidence |
+|---|----------|--------|----------|
+| 1 | High | **No single primary CTA above the fold** — Home leads with "NOW ACCEPTING ATHLETES, SIGN UP TODAY!" and multiple entry points (Book a rental, Member Scheduling, Member Registration, Arm Care Assessment, event "Sign up now") with no clear "Book an evaluation" or "Get started" for new families. | pages.json home.visibleTextSample; screenshots `index.png` |
+| 2 | High | **CTAs are icon-only or generic** — Many interactive elements expose Material icon names (flip_camera_android, keyboard_arrow_down, link, brightness_2) instead of accessible labels; "Sign up" is repeated without context (sign up for what?). | pages.json home/trainers/events .ctas |
+| 3 | High | **Leaderboard has no H1 and no explanation** — Page title "Baseline"; headings are metric names (60yd, C Velo, Exit Velo, FB Velo). Parents/athletes don't know what "good" looks like or how to interpret. | pages.json leaderboard; `leaderboard.png` |
+| 4 | Med | **Trainer discovery is filter-heavy** — Categories (Pitching, Hitting, Catching, Fielding, Strength, Tryouts, Camps, etc.) without a "Start here" path; no recommended trainer by goal. | `trainers.png`; pages.json trainers.visibleTextSample |
+| 5 | Med | **Events list is long and samey** — Winter Training Program repeated many times with slight date/cost variation; no "featured" or "new to Mine?" framing. | pages.json events.visibleTextSample; `events.png` |
+| 6 | Med | **Join form is long and unfocused** — Interest form (Lessons, Rentals, Events, Memberships, Hiring, Prospect, Other) without a guided path (e.g. goal → program → book). | home.visibleTextSample; `index.png` |
+| 7 | Med | **Nav not exposed to our scraper** — Real nav (Home, About Us, Scheduling, Member Registration, Leaderboard, Login, Sign up) exists in UI but not in a standard nav landmark; affects a11y and consistency. | explore-notes.md; navItems empty in pages.json |
+| 8 | Low | **Inconsistent page titles** — Events and Trainers pages show title "Baseline" (platform default?) instead of "Mine Performance Academy — Events" etc. | pages.json .title |
+| 9 | Low | **Footer is the only path to Privacy/Terms/Support** — No in-nav link to Contact or Support; contact info (address, phone, email) only in footer. | links.json; pages.json internalLinks |
+| 10 | Low | **Two locations for events** — 712 Eastern Blvd, Clarksville IN vs 4999 Houston Rd, Florence KY in footer; may confuse "where do I go?" | events.visibleTextSample vs home footer |
+
+### Conversion issues (from exploration)
+
+- **Unclear next step:** New visitors see "SIGN UP TODAY," "Sign up now," "View packages," "Book now" without a single recommended path (e.g. "Book an evaluation" first).
+- **Missing CTA:** No persistent "Book an evaluation" or "Get started" in a fixed nav; conversion relies on scrolling to sections or footer.
+- **Trust gaps:** No facility photos, testimonials, or "what good looks like" (leaderboard context) in the extracted content; credentials appear only on trainer bios.
+
+### Mobile-specific (from exploration)
+
+- **Screenshots:** `screenshots/mobile/index.png`, `trainers.png`, `events.png`, `leaderboard.png` — review for touch target size, readability, and whether primary action is visible without scrolling.
+- **Long event list** and **long JOIN form** will be harder on small screens; recommend shortening or stepping.
+
+### Accessibility quick pass (from exploration)
+
+- **Headings:** Home uses H2 "Home" then H1 "MINE PERFORMANCE ACADEMY"; Trainers/Events have H1; Leaderboard has no H1 (only H2 "Home" and H3 metric names). Fix: one logical H1 per page; leaderboard needs "Leaderboard" or "Results" H1.
+- **Buttons:** Many icon-only (keyboard_arrow_down, link, etc.); need aria-label or visible text for screen reader and keyboard.
+- **Labels/contrast:** Not verified in automation; manual check recommended (see WCAG section below).
+
+### Performance quick pass (from exploration)
+
+- **Heavy content:** Events page has many repeated cards; leaderboard may load dynamic data. Recommend lazy-loading below fold and stable layout (avoid CLS).
+- **Images:** Not measured; assume hero/carousel and trainer photos should be optimized (sizing, format) to improve LCP.
+
+---
+
 ## 1. Crawl summary
 
 **Crawl script:** `scripts/crawl.ts` (Playwright).  

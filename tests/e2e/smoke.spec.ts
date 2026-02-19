@@ -13,11 +13,11 @@ test.describe('Smoke', () => {
     await expect(page.getByRole('link', { name: /Start here/ }).first()).toBeVisible();
   });
 
-  test('primary CTA is clickable and points to StatStak', async ({ page }) => {
+  test('primary CTA is clickable and points to contact', async ({ page }) => {
     await page.goto('/');
     const bookCta = page.getByRole('link', { name: 'Book evaluation' }).first();
     await expect(bookCta).toBeVisible();
-    await expect(bookCta).toHaveAttribute('href', /statstak\.io/);
+    await expect(bookCta).toHaveAttribute('href', /\/contact/);
   });
 });
 
@@ -33,6 +33,8 @@ test.describe('Navigation', () => {
     { path: '/contact', name: 'Contact' },
     { path: '/faq', name: 'FAQ' },
     { path: '/start', name: 'Start' },
+    { path: '/privacy', name: 'Privacy' },
+    { path: '/terms', name: 'Terms' },
   ];
 
   for (const { path, name } of routes) {
@@ -62,33 +64,70 @@ test.describe('Navigation', () => {
   });
 });
 
-test.describe('Deep links to StatStak', () => {
-  test('Book evaluation link points to StatStak', async ({ page }) => {
+test.describe('Start wizard', () => {
+  test('wizard works end-to-end: goal → age → recommended program + CTA', async ({ page }) => {
+    await page.goto('/start');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Start here');
+    await expect(page.getByRole('heading', { level: 2 })).toContainText('your main goal');
+    await page.getByRole('button', { name: 'Velocity / throwing' }).click();
+    await expect(page.getByRole('heading', { level: 2 })).toContainText('Age group');
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.getByText('We recommend')).toBeVisible();
+    const ctaLink = page.getByRole('link', { name: /Book evaluation|Schedule session|Join program|Contact us/ }).first();
+    await expect(ctaLink).toBeVisible();
+    await expect(ctaLink).toHaveAttribute('href', /\/contact/);
+  });
+});
+
+test.describe('Primary CTA on every page', () => {
+  const pagesWithCta = [
+    { path: '/', name: 'Home' },
+    { path: '/programs', name: 'Programs' },
+    { path: '/coaches', name: 'Coaches' },
+    { path: '/events', name: 'Events' },
+    { path: '/results', name: 'Results' },
+    { path: '/contact', name: 'Contact' },
+  ];
+  for (const { path } of pagesWithCta) {
+    test(`primary CTA (Book evaluation) exists and is clickable on ${path}`, async ({ page }) => {
+      await page.goto(path);
+      const bookCta = page.getByRole('link', { name: /Book evaluation|Book/ }).first();
+      await expect(bookCta).toBeVisible();
+      await expect(bookCta).toBeEnabled();
+    });
+  }
+});
+
+test.describe('Internal CTAs (no external links)', () => {
+  test('Book evaluation link points to contact page', async ({ page }) => {
     await page.goto('/');
     const link = page.getByRole('link', { name: 'Book evaluation' }).first();
-    await expect(link).toHaveAttribute('href', /statstak\.io/);
-    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('href', /\/contact/);
   });
 
-  test('Program card CTA links to StatStak', async ({ page }) => {
+  test('Program card CTA links to contact', async ({ page }) => {
     await page.goto('/programs');
-    const statstakLink = page.locator('main a[href*="statstak"]').first();
-    await expect(statstakLink).toBeVisible();
-    await expect(statstakLink).toHaveAttribute('href', /statstak\.io/);
+    const ctaLink = page.locator('main a[href="/contact"]').first();
+    await expect(ctaLink).toBeVisible();
   });
 
-  test('Events page has link to StatStak', async ({ page }) => {
+  test('Events page Register links to contact', async ({ page }) => {
     await page.goto('/events');
-    const link = page.locator('main a[href*="statstak"]').first();
+    const link = page.locator('main a[href="/contact"]').first();
     await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', /statstak\.(io|labs\.com)/);
   });
 
-  test('Results page leaderboard CTA points to StatStak', async ({ page }) => {
+  test('Results page CTA points to results', async ({ page }) => {
     await page.goto('/results');
-    const link = page.getByRole('link', { name: /See full leaderboard/i });
+    const link = page.getByRole('link', { name: /View results & metrics/i });
     await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', /statstak\.io\/leaderboard/);
+    await expect(link).toHaveAttribute('href', /\/results/);
+  });
+
+  test('Privacy and Terms are internal', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByRole('link', { name: /Privacy policy/i }).first()).toHaveAttribute('href', /\/privacy/);
+    await expect(page.getByRole('link', { name: /Terms of use/i }).first()).toHaveAttribute('href', /\/terms/);
   });
 });
 

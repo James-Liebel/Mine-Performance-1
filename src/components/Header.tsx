@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { site, statstakUrl } from '@/lib/content';
+import { site } from '@/lib/content';
 import { Menu, X } from 'lucide-react';
 import { trackCtaClick } from '@/lib/analytics';
 import { cn } from '@/lib/cn';
@@ -23,7 +23,6 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const bookUrl = statstakUrl('/');
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
@@ -46,26 +45,22 @@ export function Header() {
           <Link href="/start" className="text-sm font-medium text-muted-foreground hover:text-primary">
             Start here
           </Link>
-          <a
-            href={bookUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackCtaClick('Book evaluation', bookUrl)}
+          <Link
+            href="/contact"
+            onClick={() => trackCtaClick('Book evaluation', '/contact')}
             className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 min-h-[44px]"
           >
             Book evaluation
-          </a>
+          </Link>
         </nav>
         <div className="flex items-center gap-2 md:hidden">
-          <a
-            href={bookUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackCtaClick('Book evaluation (mobile)', bookUrl)}
+          <Link
+            href="/contact"
+            onClick={() => trackCtaClick('Book evaluation (mobile)', '/contact')}
             className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 min-h-[44px]"
           >
             Book
-          </a>
+          </Link>
           <button
             type="button"
             aria-label="Toggle menu"

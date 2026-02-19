@@ -4,7 +4,6 @@ export interface Site {
   name: string;
   tagline: string;
   description: string;
-  statstakBaseUrl: string;
 }
 
 export interface Contact {
@@ -21,7 +20,7 @@ export interface Program {
   description: string;
   category: string;
   cta: string;
-  statstakPath: string;
+  ctaPath: string;
 }
 
 export interface Coach {
@@ -31,7 +30,7 @@ export interface Coach {
   bio?: string;
   categories: string[];
   image?: string | null;
-  statstakPath: string;
+  ctaPath: string;
 }
 
 export interface Testimonial {
@@ -50,7 +49,7 @@ export interface Event {
   name: string;
   date: string;
   shortDescription: string;
-  statstakPath: string;
+  ctaPath: string;
 }
 
 export const site = seed.site as Site;
@@ -63,11 +62,5 @@ export const events = seed.events as Event[];
 export const leaderboardHighlights = seed.leaderboardHighlights as {
   description: string;
   cta: string;
-  statstakPath: string;
+  ctaPath: string;
 };
-
-export function statstakUrl(path: string): string {
-  const base = site.statstakBaseUrl || 'https://mine-performance.statstak.io';
-  const p = path.startsWith('/') ? path : `/${path}`;
-  return `${base.replace(/\/$/, '')}${p}`;
-}

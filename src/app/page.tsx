@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { site, programs, testimonials, events, leaderboardHighlights, statstakUrl } from '@/lib/content';
+import { site, programs, testimonials, events, leaderboardHighlights } from '@/lib/content';
 import { getButtonClasses } from '@/lib/button-classes';
 
 export default function HomePage() {
@@ -14,14 +14,9 @@ export default function HomePage() {
             {site.description}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={statstakUrl('/')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={getButtonClasses({ size: 'lg' })}
-            >
+            <Link href="/contact" className={getButtonClasses({ size: 'lg' })}>
               Book evaluation
-            </a>
+            </Link>
             <Link href="/start" className={getButtonClasses({ variant: 'secondary', size: 'lg' })}>
               Start here — find your program
             </Link>
@@ -42,14 +37,12 @@ export default function HomePage() {
                 <span className="text-sm font-medium text-muted-foreground">{p.category}</span>
                 <h3 className="mt-1 text-xl font-semibold">{p.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{p.shortDescription}</p>
-                <a
-                  href={statstakUrl(p.statstakPath)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={p.ctaPath}
                   className="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                 >
                   {p.cta}
-                </a>
+                </Link>
               </article>
             ))}
           </div>
@@ -66,14 +59,12 @@ export default function HomePage() {
           <h2 className="font-display text-2xl font-bold md:text-3xl">Results</h2>
           <p className="mt-2 text-muted-foreground">{leaderboardHighlights.description}</p>
           <div className="mt-6">
-            <a
-              href={statstakUrl(leaderboardHighlights.statstakPath)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={leaderboardHighlights.ctaPath}
               className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
               {leaderboardHighlights.cta}
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -90,14 +81,12 @@ export default function HomePage() {
                 <h3 className="text-xl font-semibold">{e.name}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{e.date}</p>
                 <p className="mt-2 text-sm">{e.shortDescription}</p>
-                <a
-                  href={statstakUrl(e.statstakPath)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={e.ctaPath}
                   className="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted"
                 >
                   Register
-                </a>
+                </Link>
               </article>
             ))}
           </div>
@@ -131,14 +120,9 @@ export default function HomePage() {
           <h2 className="font-display text-2xl font-bold md:text-3xl">Ready to start?</h2>
           <p className="mt-2 text-muted-foreground">Book an evaluation or take the Start here quiz.</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={statstakUrl('/')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={getButtonClasses({ size: 'lg' })}
-            >
+            <Link href="/contact" className={getButtonClasses({ size: 'lg' })}>
               Book evaluation
-            </a>
+            </Link>
             <Link href="/start" className={getButtonClasses({ variant: 'secondary', size: 'lg' })}>
               Start here
             </Link>

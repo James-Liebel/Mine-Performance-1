@@ -1,4 +1,4 @@
-import { events, statstakUrl } from '@/lib/content';
+import { events } from '@/lib/content';
 import { getButtonClasses } from '@/lib/button-classes';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -24,27 +24,17 @@ export default function EventsPage() {
             <h2 className="text-xl font-semibold">{e.name}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{e.date}</p>
             <p className="mt-2 text-sm">{e.shortDescription}</p>
-            <a
-              href={statstakUrl(e.statstakPath)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={e.ctaPath}
               className="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
               Register
-            </a>
+            </Link>
           </article>
         ))}
       </div>
       <p className="mt-8 text-sm text-muted-foreground">
-        Full event list and registration:{' '}
-        <a
-          href={statstakUrl('/events')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-primary hover:underline"
-        >
-          View on StatStak
-        </a>
+        For dates and registration, contact us.
       </p>
       <div className="mt-8">
         <Link href="/contact" className={getButtonClasses({ variant: 'secondary' })}>

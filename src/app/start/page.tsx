@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { programs, statstakUrl } from '@/lib/content';
+import { programs } from '@/lib/content';
 import { buttonVariants } from '@/components/ui/button';
 import { trackStartWizardComplete } from '@/lib/analytics';
 
@@ -93,14 +93,9 @@ export default function StartPage() {
           <p className="mt-2 font-medium">{recommended.name}</p>
           <p className="mt-1 text-sm text-muted-foreground">{recommended.shortDescription}</p>
           <div className="mt-6 flex flex-wrap gap-4">
-            <a
-              href={statstakUrl(recommended.statstakPath)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonVariants()}
-            >
+            <Link href={recommended.ctaPath} className={buttonVariants()}>
               {recommended.cta}
-            </a>
+            </Link>
             <Link href="/programs" className={buttonVariants({ variant: 'secondary' })}>
               View all programs
             </Link>

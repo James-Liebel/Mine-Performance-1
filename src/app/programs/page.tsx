@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { programs, statstakUrl } from '@/lib/content';
+import { programs } from '@/lib/content';
 import { getButtonClasses } from '@/lib/button-classes';
 import type { Metadata } from 'next';
 
@@ -26,14 +26,12 @@ export default function ProgramsPage() {
             <h2 className="mt-1 text-xl font-semibold">{p.name}</h2>
             <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.shortDescription}</p>
             <p className="mt-3 text-sm">{p.description}</p>
-            <a
-              href={statstakUrl(p.statstakPath)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={p.ctaPath}
               className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
               {p.cta}
-            </a>
+            </Link>
           </article>
         ))}
       </div>

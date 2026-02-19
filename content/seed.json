@@ -2,22 +2,21 @@
   "site": {
     "name": "Mine Performance Academy",
     "tagline": "Elite training for the next level.",
-    "description": "Mine Performance Academy delivers expert coaching in velocity, pitch design, hitting, strength, and rehab for youth and amateur athletes.",
-    "statstakBaseUrl": "https://mine-performance.statstak.io"
+    "description": "Mine Performance Academy delivers expert coaching in velocity, pitch design, hitting, strength, and rehab for youth and amateur athletes."
   },
   "contact": {
     "address": {
-      "street": "123 Performance Way",
-      "city": "Your City",
-      "state": "ST",
-      "zip": "12345"
+      "street": "4999 Houston Rd Suite 500-2",
+      "city": "Florence",
+      "state": "KY",
+      "zip": "41042"
     },
-    "phone": "(555) 123-4567",
-    "email": "info@mineperformance.com",
+    "phone": "(513) 384-3840",
+    "email": "Ryan@mineperformanceacademy.com",
     "hours": [
-      "Mon–Fri: 2:00 PM – 9:00 PM",
-      "Sat: 9:00 AM – 4:00 PM",
-      "Sun: Closed"
+      "Mon–Fri: 8:00 AM – 9:00 PM",
+      "Sat: 10:00 AM – 8:00 PM",
+      "Sun: 10:00 AM – 8:00 PM"
     ]
   },
   "programs": [
@@ -28,7 +27,7 @@
       "description": "Structured programs to safely increase arm speed and command with progress tracking.",
       "category": "Pitching",
       "cta": "Book evaluation",
-      "statstakPath": "/"
+      "ctaPath": "/contact"
     },
     {
       "id": "pitch-design",
@@ -37,7 +36,7 @@
       "description": "Work with coaches to design and optimize pitch movement and sequencing.",
       "category": "Pitching",
       "cta": "Schedule session",
-      "statstakPath": "/"
+      "ctaPath": "/contact"
     },
     {
       "id": "hitting",
@@ -46,7 +45,7 @@
       "description": "Individual and group hitting instruction with video and data feedback.",
       "category": "Hitting",
       "cta": "Book evaluation",
-      "statstakPath": "/"
+      "ctaPath": "/contact"
     },
     {
       "id": "strength",
@@ -55,7 +54,7 @@
       "description": "Age-appropriate strength and conditioning to support performance and reduce injury risk.",
       "category": "Strength",
       "cta": "Join program",
-      "statstakPath": "/"
+      "ctaPath": "/contact"
     },
     {
       "id": "rehab",
@@ -64,18 +63,54 @@
       "description": "Structured rehab protocols and recovery support with qualified staff.",
       "category": "Rehab",
       "cta": "Contact us",
-      "statstakPath": "/"
+      "ctaPath": "/contact"
     }
   ],
   "coaches": [
     {
-      "id": "coach-1",
-      "name": "Coach Name",
-      "title": "Director of Pitching",
-      "bio": "Short bio. Certifications and experience. Replace with real data from extract-trainers or manual entry.",
-      "categories": ["Pitching", "Velocity", "Pitch Design"],
+      "id": "nick-gooden",
+      "name": "Nick Gooden",
+      "title": "Coach",
+      "bio": "Placeholder — needs client content. Bio and credentials from Mine Performance Academy.",
+      "categories": ["Pitching", "Hitting"],
       "image": null,
-      "statstakPath": "/trainers"
+      "ctaPath": "/contact"
+    },
+    {
+      "id": "braden-pickett",
+      "name": "Braden Pickett",
+      "title": "Coach",
+      "bio": "Placeholder — needs client content. Bio and credentials from Mine Performance Academy.",
+      "categories": ["Pitching", "Strength"],
+      "image": null,
+      "ctaPath": "/contact"
+    },
+    {
+      "id": "marc-carney",
+      "name": "Marc Carney",
+      "title": "Coach",
+      "bio": "Placeholder — needs client content. Bio and credentials from Mine Performance Academy.",
+      "categories": ["Hitting", "Fielding"],
+      "image": null,
+      "ctaPath": "/contact"
+    },
+    {
+      "id": "gavin-sunderman",
+      "name": "Gavin Sunderman",
+      "title": "Coach",
+      "bio": "Placeholder — needs client content. Bio and credentials from Mine Performance Academy.",
+      "categories": ["Pitching", "Catching"],
+      "image": null,
+      "ctaPath": "/contact"
+    },
+    {
+      "id": "travis-clark",
+      "name": "Travis Clark",
+      "title": "Coach",
+      "bio": "Placeholder — needs client content. Bio and credentials from Mine Performance Academy.",
+      "categories": ["Strength", "Performance"],
+      "image": null,
+      "ctaPath": "/contact"
     }
   ],
   "testimonials": [
@@ -97,11 +132,11 @@
     },
     {
       "question": "How do I book an evaluation or lesson?",
-      "answer": "Use the Book evaluation or Schedule buttons on this site to be taken to our booking system, or contact us directly by phone or the contact form."
+      "answer": "Use the Book evaluation or Contact buttons on this site, or reach out by phone or the contact form. We'll get you scheduled."
     },
     {
       "question": "Do you offer memberships or packages?",
-      "answer": "Yes. We offer membership and package options for ongoing training. Details are available when you book or contact us."
+      "answer": "Yes. We offer membership and package options for ongoing training. Details are available when you contact us or book an evaluation."
     },
     {
       "question": "What ages do you work with?",
@@ -109,21 +144,28 @@
     },
     {
       "question": "Where are you located and what are your hours?",
-      "answer": "See our Contact page for address, map, and current hours."
+      "answer": "See our Contact page for address, map, and current hours. We're at 4999 Houston Rd Suite 500-2, Florence, KY 41042."
     }
   ],
   "events": [
     {
-      "id": "camp-1",
-      "name": "Winter Velocity Camp",
-      "date": "TBD",
-      "shortDescription": "Multi-day velocity and pitch design camp.",
-      "statstakPath": "/events"
+      "id": "winter-1",
+      "name": "Winter Training Program (Ages 7–13)",
+      "date": "See events page for dates",
+      "shortDescription": "Multi-session winter training for youth athletes.",
+      "ctaPath": "/contact"
+    },
+    {
+      "id": "winter-2",
+      "name": "Winter Training Program (Ages 15+)",
+      "date": "See events page for dates",
+      "shortDescription": "Winter training for high school and older athletes.",
+      "ctaPath": "/contact"
     }
   ],
   "leaderboardHighlights": {
-    "description": "Our athletes consistently rank on facility and national leaderboards.",
-    "cta": "See full leaderboard",
-    "statstakPath": "/leaderboard"
+    "description": "Our athletes consistently rank on facility and national leaderboards. We track 60yd, C Velo, Exit Velo, and FB Velo.",
+    "cta": "View results & metrics",
+    "ctaPath": "/results"
   }
 }

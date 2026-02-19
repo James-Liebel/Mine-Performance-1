@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { site, contact, statstakUrl } from '@/lib/content';
+import { site, contact } from '@/lib/content';
 
 export function Footer() {
   const address = contact.address;
@@ -11,14 +11,12 @@ export function Footer() {
           <div>
             <p className="font-display text-lg font-bold">{site.name}</p>
             <p className="mt-2 text-sm text-muted-foreground">{site.tagline}</p>
-            <a
-              href={statstakUrl('/')}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/contact"
               className="mt-4 inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 min-h-[44px]"
             >
               Book evaluation
-            </a>
+            </Link>
           </div>
           <div>
             <h3 className="font-semibold">Contact</h3>
@@ -42,16 +40,14 @@ export function Footer() {
               <li><Link href="/events" className="hover:text-foreground">Events</Link></li>
               <li><Link href="/faq" className="hover:text-foreground">FAQ</Link></li>
               <li><Link href="/contact" className="hover:text-foreground">Contact</Link></li>
-              <li><a href={statstakUrl('/leaderboard')} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Leaderboard</a></li>
+              <li><Link href="/results" className="hover:text-foreground">Results & leaderboard</Link></li>
             </ul>
           </div>
         </div>
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <Link href="/contact" className="hover:text-foreground">Privacy</Link>
+          <Link href="/privacy" className="hover:text-foreground">Privacy policy</Link>
           {' · '}
-          <a href={statstakUrl('/privacy/mine-performance-academy-1763611755021x845518651562857000')} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Privacy policy</a>
-          {' · '}
-          <a href={statstakUrl('/terms/mine-performance-academy-1763611755021x845518651562857000')} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Terms</a>
+          <Link href="/terms" className="hover:text-foreground">Terms of use</Link>
         </div>
       </div>
     </footer>

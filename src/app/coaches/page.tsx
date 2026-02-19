@@ -1,4 +1,5 @@
-import { coaches, statstakUrl } from '@/lib/content';
+import Link from 'next/link';
+import { coaches } from '@/lib/content';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -27,27 +28,17 @@ export default function CoachesPage() {
                 </span>
               ))}
             </div>
-            <a
-              href={statstakUrl(c.statstakPath)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={c.ctaPath}
               className="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
               Schedule with {c.name.split(' ')[0]}
-            </a>
+            </Link>
           </article>
         ))}
       </div>
       <p className="mt-8 text-sm text-muted-foreground">
-        Full trainer list and booking:{' '}
-        <a
-          href={statstakUrl('/trainers')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-primary hover:underline"
-        >
-          View on StatStak
-        </a>
+        To book a session with any coach, use the Contact page or call us.
       </p>
     </div>
   );
