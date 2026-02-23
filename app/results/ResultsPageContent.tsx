@@ -6,6 +6,12 @@ import Image from 'next/image';
 import { EditableContent } from '@/components/EditableContent';
 import type { CollegeCommit, Endorsement, CommitDivision } from '@/lib/results-store';
 
+const METRIC_ACCORDION_ITEMS = [
+  { id: 'what-we-measure', title: 'What we measure', body: 'We track velocity, spin rate, exit velocity, and other metrics using radar and assessment tools. These help coaches and athletes see progress over time.' },
+  { id: 'college-commit', title: 'What college commit means', body: 'Athletes listed here have committed to play at a college or university. Commitments are verified and listed with the athlete’s permission.' },
+  { id: 'what-this-means', title: 'What this means for you', body: 'Our facility and coaching support athletes who want to reach the next level. Results vary by athlete; we focus on consistent development and clear feedback.' },
+] as const;
+
 const DIVISION_ORDER: CommitDivision[] = ['d1', 'd2', 'd3', 'juco_naia'];
 const DIVISION_LABELS: Record<CommitDivision, string> = {
   d1: 'Division I',
@@ -18,6 +24,7 @@ export function ResultsPageContent() {
   const [collegeCommits, setCollegeCommits] = useState<CollegeCommit[]>([]);
   const [endorsements, setEndorsements] = useState<Endorsement[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openAccordionId, setOpenAccordionId] = useState<string | null>(METRIC_ACCORDION_ITEMS[0].id);
 
   useEffect(() => {
     fetch('/api/results')
@@ -51,13 +58,46 @@ export function ResultsPageContent() {
   }
 
   return (
-    <div className="page">
+    <div className="page page-results-conversion">
       <section className="page-home-section alt-bg">
         <div className="container">
-          <h1><EditableContent contentKey="results_heading" fallback="College commits" as="span" /></h1>
+          <h1 data-testid="results-heading"><EditableContent contentKey="results_heading" fallback="College commits" as="span" /></h1>
           <p className="section-sub" style={{ maxWidth: '640px' }}>
             <EditableContent contentKey="results_sub" fallback="Athletes from our facility who have committed to play at the next level. We're proud of every one of them." as="span" />
           </p>
+        </div>
+      </section>
+
+      <section className="page-home-section results-metric-explainer" aria-label="Metric explainer" data-testid="results-metric-explainer">
+        <div className="container">
+          <h2 className="results-explainer-heading">What this means</h2>
+          <div className="results-accordion">
+            {METRIC_ACCORDION_ITEMS.map((item) => (
+              <div key={item.id} className="results-accordion-item card card-elevated">
+                <button
+                  type="button"
+                  className="results-accordion-trigger"
+                  aria-expanded={openAccordionId === item.id}
+                  aria-controls={`results-accordion-panel-${item.id}`}
+                  id={`results-accordion-trigger-${item.id}`}
+                  onClick={() => setOpenAccordionId((id) => (id === item.id ? null : item.id))}
+                  data-testid={`results-accordion-${item.id}`}
+                >
+                  <span>{item.title}</span>
+                  <span className="results-accordion-icon" aria-hidden>{openAccordionId === item.id ? '−' : '+'}</span>
+                </button>
+                <div
+                  id={`results-accordion-panel-${item.id}`}
+                  role="region"
+                  aria-labelledby={`results-accordion-trigger-${item.id}`}
+                  className="results-accordion-panel"
+                  hidden={openAccordionId !== item.id}
+                >
+                  <p className="results-accordion-body">{item.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

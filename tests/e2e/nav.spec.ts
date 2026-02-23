@@ -4,7 +4,7 @@ test.describe('Navigation', () => {
   test('main nav links work on desktop', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto('/');
-    await expect(page.locator('h1')).toContainText(/train smarter|training, quantified/i);
+    await expect(page.locator('h1')).toContainText(/train smarter|training, quantified|Mine Performance/i);
 
     const nav = page.locator('nav[aria-label="Main navigation"]');
     await nav.getByRole('link', { name: 'Programs' }).click();
@@ -20,7 +20,7 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL(/\/contact/);
 
     await page.goto('/');
-    await nav.getByRole('link', { name: /Login · Sign up/i }).click();
+    await page.getByTestId('nav-primary-cta').click();
     await expect(page).toHaveURL(/\/login/);
 
     await page.goto('/');

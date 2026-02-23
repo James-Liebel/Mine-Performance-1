@@ -10,3 +10,7 @@ export { StoryProblem } from './StoryProblem';
 export { StoryMethod } from './StoryMethod';
 export { StoryProof } from './StoryProof';
 export { StoryPlace } from './StoryPlace';
+export { HomeConversionHero } from './HomeConversionHero';
+export { HomeHowItWorks } from './HomeHowItWorks';
+export { HomeProgramsGrid } from './HomeProgramsGrid';
+export { HomeResultsPreview } from './HomeResultsPreview';

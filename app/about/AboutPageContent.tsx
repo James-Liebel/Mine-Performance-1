@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { CoachesClient, type Coach } from '@/app/coaches/CoachesClient';
 import { EditableContent } from '@/components/EditableContent';
 
 export function AboutPageContent() {
   const [coaches, setCoaches] = useState<Coach[]>([]);
+  const [filterSpecialty, setFilterSpecialty] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'name' | 'title'>('name');
 
   useEffect(() => {
     fetch('/api/coaches')
@@ -22,11 +24,27 @@ export function AboutPageContent() {
       .catch(() => {});
   };
 
+  const specialties = useMemo(() => {
+    const set = new Set<string>(coaches.map((c) => c.specialty?.trim()).filter(Boolean));
+    return ['all', ...Array.from(set).sort()];
+  }, [coaches]);
+
+  const filteredAndSortedCoaches = useMemo(() => {
+    let list = coaches;
+    if (filterSpecialty !== 'all') {
+      list = list.filter((c) => (c.specialty?.trim() ?? '') === filterSpecialty);
+    }
+    return [...list].sort((a, b) => {
+      if (sortBy === 'name') return (a.name ?? '').localeCompare(b.name ?? '');
+      return (a.title ?? '').localeCompare(b.title ?? '');
+    });
+  }, [coaches, filterSpecialty, sortBy]);
+
   return (
-    <div className="page">
+    <div className="page page-about-conversion">
       <section className="page-home-section alt-bg">
         <div className="container">
-          <h1>
+          <h1 data-testid="about-heading">
             <EditableContent contentKey="about_page_heading" fallback="About Mine Performance Academy" as="span" />
           </h1>
           <p className="section-sub" style={{ maxWidth: '640px' }}>
@@ -35,15 +53,52 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      <section id="coaching-staff" className="page-home-section alt-bg">
+      <section id="coaching-staff" className="page-home-section coaches-directory alt-bg" data-testid="coaching-staff">
         <div className="container">
           <h2>
             <EditableContent contentKey="about_coaching_heading" fallback="Coaching staff" as="span" />
           </h2>
-          <p className="section-sub" style={{ maxWidth: '640px', marginBottom: '1.5rem' }}>
+          <p className="section-sub" style={{ maxWidth: '640px', marginBottom: '1rem' }}>
             <EditableContent contentKey="about_coaching_sub" fallback="Our coaches bring D1 playing experience, certifications, and hundreds of athletes trained. They're focused on measurable progress, smart programming, and long-term development." as="span" />
           </p>
-          <CoachesClient coaches={coaches} onCoachChange={refetchCoaches} />
+          <div className="coaches-directory-layout">
+            <aside className="coaches-directory-filters" aria-label="Filter coaches">
+              <div className="coaches-filter-group">
+                <label className="coaches-filter-label">Specialty</label>
+                <select
+                  className="form-input coaches-filter-select"
+                  value={filterSpecialty}
+                  onChange={(e) => setFilterSpecialty(e.target.value)}
+                  data-testid="coaches-filter-specialty"
+                >
+                  {specialties.map((s) => (
+                    <option key={s} value={s}>{s === 'all' ? 'All' : s}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="coaches-filter-group">
+                <label className="coaches-filter-label">Sort by</label>
+                <select
+                  className="form-input coaches-filter-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'name' | 'title')}
+                  data-testid="coaches-sort"
+                >
+                  <option value="name">Name A–Z</option>
+                  <option value="title">Title</option>
+                </select>
+              </div>
+            </aside>
+            <div className="coaches-directory-main">
+              {filteredAndSortedCoaches.length === 0 ? (
+                <p className="coaches-empty-state" data-testid="coaches-empty-state">
+                  No coaches match. Try changing the filter.
+                </p>
+              ) : (
+                <CoachesClient coaches={filteredAndSortedCoaches} onCoachChange={refetchCoaches} />
+              )}
+            </div>
+          </div>
           <div className="cta-row" style={{ marginTop: '2rem' }}>
             <Link href="/member-registration" className="btn btn-primary" data-testid="page-primary-cta">
               View memberships
