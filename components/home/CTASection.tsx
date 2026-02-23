@@ -19,7 +19,6 @@ export function CTASection() {
           <Link href="/member-registration" className="btn btn-primary btn-lg" data-testid="home-bottom-cta">
             View memberships
           </Link>
-          <Link href="/contact" className="btn btn-secondary btn-lg">Contact us</Link>
         </div>
         <p className="cta-footer">
           Questions? <Link href="/contact">Contact us</Link> or call <a href={`tel:${tel}`}>{SITE_PHONE}</a>.
