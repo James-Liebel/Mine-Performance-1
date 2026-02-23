@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,13 +17,32 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./*"],
-      "@mine-performance/core": ["./packages/core/src"],
-      "@mine-performance/core/hooks": ["./packages/core/src/hooks"]
+      "@/*": [
+        "./*"
+      ],
+      "@mine-performance/core": [
+        "./packages/core/src"
+      ],
+      "@mine-performance/core/hooks": [
+        "./packages/core/src/hooks"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "scripts/crawl.ts", "scripts/extract-trainers.ts"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "scripts/crawl.ts",
+    "scripts/extract-trainers.ts"
+  ]
 }
