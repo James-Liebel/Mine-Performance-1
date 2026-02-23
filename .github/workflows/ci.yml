@@ -10,6 +10,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      NEXTAUTH_SECRET: ci-test-secret-do-not-use-in-production
+      NEXTAUTH_URL: http://localhost:3000
     steps:
       - uses: actions/checkout@v4
 
