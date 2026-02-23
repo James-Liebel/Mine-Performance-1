@@ -1,0 +1,167 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - navigation "Main navigation" [ref=e4]:
+      - generic [ref=e5]:
+        - link "Mine Performance" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e9]: Mine Performance
+        - button "Toggle menu" [ref=e10] [cursor=pointer]: ☰
+  - main [ref=e11]:
+    - generic [ref=e12]:
+      - region "Your baseball training, quantified." [ref=e13]:
+        - generic [ref=e14]:
+          - heading "Your baseball training, quantified." [level=1] [ref=e15]
+          - paragraph [ref=e16]: Batting cages, pitching lab, weight room, assessment area.
+          - generic [ref=e17]:
+            - link "Book an Evaluation" [ref=e18] [cursor=pointer]:
+              - /url: /start
+            - link "View memberships" [ref=e19] [cursor=pointer]:
+              - /url: /member-registration
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]: 500+
+          - generic [ref=e25]: Pitchers trained
+        - generic [ref=e26]:
+          - generic [ref=e27]: 70+
+          - generic [ref=e28]: Successful rehabs
+        - generic [ref=e29]:
+          - generic [ref=e30]: "35"
+          - generic [ref=e31]: College commits (24 mo.)
+        - generic [ref=e32]:
+          - generic [ref=e33]: "5"
+          - generic [ref=e34]: Expert coaches
+      - region "Programs" [ref=e35]:
+        - generic [ref=e36]:
+          - heading "Programs" [level=2] [ref=e37]
+          - paragraph [ref=e38]: Whether you're building velocity, refining your swing, or coming back from injury — we have a path designed for you.
+          - generic [ref=e39]:
+            - link "Memberships Adult & youth plans — hitting, pitching, strength View details →" [ref=e40] [cursor=pointer]:
+              - /url: /member-registration
+              - heading "Memberships" [level=3] [ref=e41]
+              - paragraph [ref=e42]: Adult & youth plans — hitting, pitching, strength
+              - generic [ref=e43]: View details →
+            - link "Scheduling Events, camps, clinics — view calendar and book View details →" [ref=e44] [cursor=pointer]:
+              - /url: /events
+              - heading "Scheduling" [level=3] [ref=e45]
+              - paragraph [ref=e46]: Events, camps, clinics — view calendar and book
+              - generic [ref=e47]: View details →
+            - link "Rentals Labs, cages, turf — reserve by date and time View details →" [ref=e48] [cursor=pointer]:
+              - /url: /rentals
+              - heading "Rentals" [level=3] [ref=e49]
+              - paragraph [ref=e50]: Labs, cages, turf — reserve by date and time
+              - generic [ref=e51]: View details →
+          - generic [ref=e52]:
+            - link "View memberships" [ref=e53] [cursor=pointer]:
+              - /url: /member-registration
+            - link "Contact us" [ref=e54] [cursor=pointer]:
+              - /url: /contact
+      - region "How it works" [ref=e55]:
+        - generic [ref=e56]:
+          - heading "How it works" [level=2] [ref=e57]
+          - paragraph [ref=e58]: Three simple steps to get started.
+          - list [ref=e59]:
+            - listitem [ref=e60]:
+              - generic [ref=e61]: "1"
+              - heading "1. Evaluation" [level=3] [ref=e62]
+              - paragraph [ref=e63]: We assess your goals and current level so we can recommend the right program.
+              - link "Book evaluation" [ref=e64] [cursor=pointer]:
+                - /url: /start
+            - listitem [ref=e65]:
+              - generic [ref=e66]: "2"
+              - heading "2. Plan" [level=3] [ref=e67]
+              - paragraph [ref=e68]: Choose a membership or rental option that fits your schedule and goals.
+              - link "View plans" [ref=e69] [cursor=pointer]:
+                - /url: /member-registration
+            - listitem [ref=e70]:
+              - generic [ref=e71]: "3"
+              - heading "3. Training" [level=3] [ref=e72]
+              - paragraph [ref=e73]: Train with our coaches and use our facility to reach the next level.
+              - link "Get started" [ref=e74] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=e76]:
+        - heading "Our coaching team" [level=2] [ref=e77]
+        - paragraph [ref=e78]: D1 playing experience. 500+ pitchers trained. 70+ successful rehabs. Our coaches bring real credentials and a commitment to every athlete's growth.
+        - link "Meet the coaches" [ref=e80] [cursor=pointer]:
+          - /url: /about#coaching-staff
+      - region "College commits" [ref=e81]:
+        - generic [ref=e82]:
+          - heading "College commits" [level=2] [ref=e83]
+          - paragraph [ref=e84]: Athletes from our facility who have committed to play at the next level. We're proud of every one of them.
+          - link "See our results" [ref=e85] [cursor=pointer]:
+            - /url: /results
+      - generic [ref=e87]:
+        - heading "Ready to train?" [level=2] [ref=e88]
+        - paragraph [ref=e89]: View memberships, book events on the calendar, or reserve a lab or cage. We'll help you find the right fit.
+        - generic [ref=e90]:
+          - link "View memberships" [ref=e91] [cursor=pointer]:
+            - /url: /member-registration
+          - link "Contact us" [ref=e92] [cursor=pointer]:
+            - /url: /contact
+        - paragraph [ref=e93]:
+          - text: Questions?
+          - link "Contact us" [ref=e94] [cursor=pointer]:
+            - /url: /contact
+          - text: or call
+          - link "(513) 384-3840" [ref=e95] [cursor=pointer]:
+            - /url: tel:5133843840
+          - text: .
+  - button "Open chat" [ref=e96] [cursor=pointer]:
+    - img [ref=e97]
+  - contentinfo [ref=e99]:
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - link "Mine Performance" [ref=e102] [cursor=pointer]:
+          - /url: /
+        - paragraph [ref=e103]: Data-driven baseball training
+        - generic "Social links" [ref=e104]:
+          - link "Instagram" [ref=e105] [cursor=pointer]:
+            - /url: https://www.instagram.com/mineperformance/?hl=en
+            - img [ref=e106]
+          - link "Facebook" [ref=e108] [cursor=pointer]:
+            - /url: https://www.facebook.com/profile.php?id=61569199182719
+            - img [ref=e109]
+          - link "X (Twitter)" [ref=e111] [cursor=pointer]:
+            - /url: https://x.com/mineperform_spt
+            - img [ref=e112]
+          - link "YouTube" [ref=e114] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCnyrrOUDQLPbicY8jutpu1A
+            - img [ref=e115]
+      - generic [ref=e117]:
+        - heading "Train" [level=4] [ref=e118]
+        - link "Memberships" [ref=e119] [cursor=pointer]:
+          - /url: /member-registration
+        - link "About us" [ref=e120] [cursor=pointer]:
+          - /url: /about#coaching-staff
+        - link "Events" [ref=e121] [cursor=pointer]:
+          - /url: /events
+        - link "Rentals" [ref=e122] [cursor=pointer]:
+          - /url: /rentals
+      - generic [ref=e123]:
+        - heading "Athletes" [level=4] [ref=e124]
+        - link "College commits" [ref=e125] [cursor=pointer]:
+          - /url: /results
+        - link "Login" [ref=e126] [cursor=pointer]:
+          - /url: /login
+      - generic [ref=e127]:
+        - heading "Location & hours" [level=4] [ref=e128]
+        - paragraph [ref=e129]: 4999 Houston Rd Suite 500-2, Florence, KY 41042
+        - link "(513) 384-3840" [ref=e130] [cursor=pointer]:
+          - /url: tel:5133843840
+        - link "Ryan@mineperformanceacademy.com" [ref=e131] [cursor=pointer]:
+          - /url: mailto:Ryan@mineperformanceacademy.com
+        - list "Hours" [ref=e132]:
+          - listitem [ref=e133]: "Monday – Friday: 8 am – 9 pm"
+          - listitem [ref=e134]: "Saturday – Sunday: 10 am – 8 pm"
+    - generic [ref=e135]:
+      - paragraph [ref=e136]: © 2026 Mine Performance Academy. All rights reserved.
+      - paragraph [ref=e137]:
+        - text: Powered by
+        - link "The Futures App" [ref=e138] [cursor=pointer]:
+          - /url: https://thefuturesapp.com
+```
