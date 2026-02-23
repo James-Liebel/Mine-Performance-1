@@ -14,8 +14,12 @@
     "jsx": "preserve",
     "incremental": true,
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": {
+      "@/*": ["./*"],
+      "@mine-performance/core": ["./packages/core/src"],
+      "@mine-performance/core/hooks": ["./packages/core/src/hooks"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "scripts/crawl.ts", "scripts/extract-trainers.ts"]
 }
