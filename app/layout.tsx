@@ -3,7 +3,6 @@ import './globals.css';
 import '@/lib/env';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
-import { StickyCTA } from '@/components/StickyCTA';
 import { ChatWidget } from '@/components/ChatWidget';
 import { ClientProviders } from '@/components/ClientProviders';
 import { defaultMetadata, getLocalBusinessJsonLd } from '@/lib/seo';
@@ -41,7 +40,6 @@ export default function RootLayout({
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>
-          <StickyCTA />
           <ChatWidget />
           <Footer />
         </ClientProviders>
