@@ -35,10 +35,6 @@ export function HomeProgramsGrid() {
             </Link>
           ))}
         </div>
-        <div className="home-programs-cta">
-          <Link href="/member-registration" className="btn btn-primary">View memberships</Link>
-          <Link href="/contact" className="btn btn-secondary">Contact us</Link>
-        </div>
       </div>
     </section>
   );
