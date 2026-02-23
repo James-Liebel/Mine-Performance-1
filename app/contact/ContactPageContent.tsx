@@ -10,67 +10,64 @@ export function ContactPageContent() {
   const { content } = useSiteContent();
 
   return (
-    <div className="container" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
-      <h1>
-        <EditableContent contentKey="contact_heading" fallback="Contact Us" as="span" />
-      </h1>
-      <p className="text-muted" style={{ marginBottom: '2rem', maxWidth: '520px' }}>
-        <EditableContent contentKey="contact_intro" fallback="Book a session, ask about programs, or schedule a facility tour. We're here to help." as="span" />
-      </p>
-
-      <Suspense fallback={null}>
-        <BookingBanner />
-      </Suspense>
-
-      <div
-        style={{
-          display: 'grid',
-          gap: '2rem',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        }}
-      >
-        <section className="card card-elevated" style={{ padding: '1.5rem' }}>
-          <h2 style={{ fontSize: '1.25rem', marginTop: 0, marginBottom: '1rem' }}>
-            <EditableContent contentKey="contact_send_message_heading" fallback="Send a message" as="span" />
-          </h2>
-          <ContactForm />
-        </section>
-
-        <section>
-          <h2 style={{ fontSize: '1.25rem', marginTop: 0, marginBottom: '1rem' }}>
-            <EditableContent contentKey="contact_location_heading" fallback="Location & hours" as="span" />
-          </h2>
-          <div className="card" style={{ padding: '1.25rem', marginBottom: '1rem' }}>
-            <p style={{ marginBottom: '0.5rem', fontWeight: 600 }}>
+    <div className="page page-contact-conversion">
+      <div className="contact-page-unique">
+        <div className="contact-visit-strip-full" aria-label="Visit us">
+          <div className="container contact-visit-strip-inner">
+            <div className="contact-visit-strip-item">
+              <span className="contact-visit-strip-label">Address</span>
               <EditableContent contentKey="contact_address" fallback="" as="span" />
-            </p>
-            <p style={{ marginBottom: '0.5rem' }}>
+            </div>
+            <div className="contact-visit-strip-item">
+              <span className="contact-visit-strip-label">Phone</span>
               <a href={`tel:${(content.contact_phone ?? '').replace(/\D/g, '')}`}>
                 <EditableContent contentKey="contact_phone" fallback="" as="span" />
               </a>
-            </p>
-            <p style={{ marginBottom: '0' }}>
+            </div>
+            <div className="contact-visit-strip-item">
+              <span className="contact-visit-strip-label">Email</span>
               <a href={`mailto:${content.contact_email ?? ''}`}>
                 <EditableContent contentKey="contact_email" fallback="" as="span" />
               </a>
-            </p>
+            </div>
+            <div className="contact-visit-strip-item">
+              <span className="contact-visit-strip-label">Hours</span>
+              <span style={{ whiteSpace: 'pre-line', fontSize: '0.9rem' }}>
+                <EditableContent contentKey="contact_hours" fallback="Mon–Fri 8am–9pm · Sat–Sun 10am–8pm" as="span" />
+              </span>
+            </div>
+            <div className="contact-visit-strip-item contact-visit-strip-actions">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.contact_address ?? '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary btn-sm"
+              >
+                <EditableContent contentKey="contact_directions_label" fallback="Directions" as="span" />
+              </a>
+            </div>
           </div>
-          <div className="card" style={{ padding: '1.25rem', marginBottom: '1rem' }}>
-            <h3 style={{ fontSize: '1rem', marginTop: 0, marginBottom: '0.5rem' }}>Hours</h3>
-            <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.95rem', whiteSpace: 'pre-line' }}>
-              <EditableContent contentKey="contact_hours" fallback="Monday – Friday: 8 am – 9 pm\nSaturday – Sunday: 10 am – 8 pm" as="span" />
-            </p>
-          </div>
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(content.contact_address ?? '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary"
-            style={{ width: '100%', justifyContent: 'center' }}
-          >
-            <EditableContent contentKey="contact_directions_label" fallback="Get directions →" as="span" />
-          </a>
-        </section>
+        </div>
+
+        <div className="container contact-page-inner" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
+          <h1>
+            <EditableContent contentKey="contact_heading" fallback="Contact Us" as="span" />
+          </h1>
+          <p className="text-muted" style={{ marginBottom: '1.5rem', maxWidth: '520px' }}>
+            <EditableContent contentKey="contact_intro" fallback="Book a session, ask about programs, or schedule a facility tour. We're here to help." as="span" />
+          </p>
+
+          <Suspense fallback={null}>
+            <BookingBanner />
+          </Suspense>
+
+          <section className="card card-elevated contact-form-full" style={{ padding: '1.75rem', maxWidth: '640px' }}>
+            <h2 style={{ fontSize: '1.25rem', marginTop: 0, marginBottom: '1rem' }}>
+              <EditableContent contentKey="contact_send_message_heading" fallback="Send a message" as="span" />
+            </h2>
+            <ContactForm />
+          </section>
+        </div>
       </div>
     </div>
   );

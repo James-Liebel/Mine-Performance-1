@@ -12,7 +12,6 @@ const METRIC_ACCORDION_ITEMS = [
   { id: 'what-this-means', title: 'What this means for you', body: 'Our facility and coaching support athletes who want to reach the next level. Results vary by athlete; we focus on consistent development and clear feedback.' },
 ] as const;
 
-const DIVISION_ORDER: CommitDivision[] = ['d1', 'd2', 'd3', 'juco_naia'];
 const DIVISION_LABELS: Record<CommitDivision, string> = {
   d1: 'Division I',
   d2: 'Division II',
@@ -40,13 +39,15 @@ export function ResultsPageContent() {
       .finally(() => setLoading(false));
   }, []);
 
-  const commitsByDivision = useMemo(() => {
-    const map: Record<CommitDivision, CollegeCommit[]> = { d1: [], d2: [], d3: [], juco_naia: [] };
+  const commitsByYear = useMemo(() => {
+    const map: Record<string, CollegeCommit[]> = {};
     collegeCommits.forEach((c) => {
-      const div = (c.division && map[c.division] ? c.division : 'd1') as CommitDivision;
-      map[div].push(c);
+      const y = c.year ?? 'Other';
+      if (!map[y]) map[y] = [];
+      map[y].push(c);
     });
-    return map;
+    const years = Object.keys(map).sort((a, b) => (b === 'Other' ? -1 : a === 'Other' ? 1 : b.localeCompare(a)));
+    return years.map((year) => ({ year, commits: map[year] }));
   }, [collegeCommits]);
 
   if (loading) {
@@ -101,64 +102,68 @@ export function ResultsPageContent() {
         </div>
       </section>
 
-      <section className="page-home-section">
-        <div className="container">
-          <h2><EditableContent contentKey="results_athletes_heading" fallback="Athletes & colleges" as="span" /></h2>
-          {collegeCommits.length === 0 ? (
-            <p className="text-muted"><EditableContent contentKey="results_no_commits" fallback="No college commits listed yet. Check back soon." as="span" /></p>
-          ) : (
-            <>
-              {DIVISION_ORDER.map((division) => {
-                const list = commitsByDivision[division];
-                if (list.length === 0) return null;
-                return (
-                  <div key={division} className="results-commits-division" style={{ marginBottom: '2rem' }}>
-                    <h3 className="results-commits-division-title" style={{ fontSize: '1.15rem', marginBottom: '1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                      {DIVISION_LABELS[division]}
-                    </h3>
-                    <ul className="results-commits-list" role="list">
-                      {list.map((c) => (
-                        <li key={c.id} className="card card-elevated results-commit-card results-commit-card--interactive">
-                          <div className="results-commit-inner">
-                            {c.imageUrl && (
-                              <div className="results-commit-image-wrap">
-                                <Image src={c.imageUrl} alt={c.athleteName ? `${c.athleteName} college` : 'College logo'} width={48} height={48} className="results-commit-image" unoptimized />
-                              </div>
-                            )}
-                            <div className="results-commit-main">
-                              <span className="results-commit-name">{c.athleteName}</span>
-                              <span className="results-commit-college">{c.college}</span>
-                            </div>
-                          </div>
-                          {(c.year || c.position) && (
-                            <div className="results-commit-meta">
-                              {c.position && <span className="results-commit-position">{c.position}</span>}
-                              {c.year && <span className="results-commit-year">{c.year}</span>}
+      <section className="page-home-section results-by-year-section">
+        <div className={`container results-year-layout${commitsByYear.length === 0 ? ' results-year-layout--no-nav' : ''}`}>
+          {commitsByYear.length > 0 && (
+            <nav className="results-year-nav" aria-label="Jump to year">
+              <h2 className="results-year-nav-title"><EditableContent contentKey="results_athletes_heading" fallback="By year" as="span" /></h2>
+              <ul className="results-year-nav-list" role="list">
+                {commitsByYear.map(({ year }) => (
+                  <li key={year}>
+                    <a href={`#results-year-${year}`} className="results-year-nav-link">{year}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+          <div className="results-year-content">
+            {collegeCommits.length === 0 ? (
+              <p className="text-muted"><EditableContent contentKey="results_no_commits" fallback="No college commits listed yet. Check back soon." as="span" /></p>
+            ) : (
+              <div className="results-by-year-timeline">
+                {commitsByYear.map(({ year, commits }) => (
+                  <div key={year} id={`results-year-${year}`} className="results-year-block">
+                    <h3 className="results-year-heading">{year}</h3>
+                  <ul className="results-commits-list results-commits-list--rows" role="list">
+                    {commits.map((c) => (
+                      <li key={c.id} className="card card-elevated results-commit-card results-commit-card--interactive">
+                        <div className="results-commit-inner">
+                          {c.imageUrl && (
+                            <div className="results-commit-image-wrap">
+                              <Image src={c.imageUrl} alt={c.athleteName ? `${c.athleteName} college` : 'College logo'} width={48} height={48} className="results-commit-image" unoptimized />
                             </div>
                           )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
-            </>
-          )}
+                          <div className="results-commit-main">
+                            <span className="results-commit-name">{c.athleteName}</span>
+                            <span className="results-commit-college">{c.college}</span>
+                          </div>
+                        </div>
+                        {(c.year || c.position) && (
+                          <div className="results-commit-meta">
+                            {c.position && <span className="results-commit-position">{c.position}</span>}
+                            {c.division && <span className="results-commit-division">{DIVISION_LABELS[c.division]}</span>}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
-      <section className="page-home-section alt-bg">
+      <section className="page-home-section alt-bg results-endorsements-strip" aria-label="Endorsements">
         <div className="container">
-          <h2><EditableContent contentKey="results_endorsements_heading" fallback="Player endorsements" as="span" /></h2>
-          <p className="section-sub" style={{ maxWidth: '640px', marginBottom: '1.5rem' }}>
-            <EditableContent contentKey="results_endorsements_sub" fallback="What athletes and families say about training at Mine Performance." as="span" />
-          </p>
+          <h2 className="results-endorsements-strip-title"><EditableContent contentKey="results_endorsements_heading" fallback="What they say" as="span" /></h2>
           {endorsements.length === 0 ? (
             <p className="text-muted"><EditableContent contentKey="results_no_endorsements" fallback="No endorsements yet. Check back soon." as="span" /></p>
           ) : (
-            <div className="results-endorsements-grid">
+            <div className="results-endorsements-strip-inner">
               {endorsements.map((e) => (
-                <blockquote key={e.id} className="card card-elevated results-endorsement-card results-endorsement-card--interactive">
+                <blockquote key={e.id} className="results-endorsement-strip-card card card-elevated">
                   <p className="results-endorsement-quote">&ldquo;{e.quote}&rdquo;</p>
                   <footer className="results-endorsement-footer">
                     <cite className="results-endorsement-name">{e.athleteName}</cite>

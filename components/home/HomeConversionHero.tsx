@@ -10,7 +10,7 @@ export function HomeConversionHero() {
     <section className="hero hero-conversion" aria-labelledby="home-hero-heading" data-testid="home-hero">
       <div className="container hero-conversion-inner">
         <h1 id="home-hero-heading" className="hero-conversion-title">
-          <EditableContent contentKey="hero_heading" fallback="Your baseball training, quantified." as="span" />
+          <EditableContent contentKey="hero_heading" fallback="Mine Performance Baseball Academy" as="span" />
         </h1>
         <p className="hero-conversion-tagline">
           <EditableContent contentKey="hero_space_offerings" fallback="Batting cages, pitching lab, weight room, assessment area." as="span" />

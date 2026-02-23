@@ -9,8 +9,8 @@ test.describe.skip('Chat widget', () => {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText(/training, quantified|Mine Performance|train smarter/i);
 
-    await expect(page.getByTestId('chat-widget-toggle')).toBeVisible();
-    await page.getByTestId('chat-widget-toggle').click();
+    await expect(page.getByTestId('chat-widget-launcher')).toBeVisible();
+    await page.getByTestId('chat-widget-launcher').click();
 
     const panel = page.getByTestId('chat-widget-panel');
     await expect(panel).toBeVisible({ timeout: 15000 });
@@ -34,7 +34,7 @@ test.describe.skip('Chat widget', () => {
     page,
   }) => {
     await page.goto('/');
-    await page.getByTestId('chat-widget-toggle').click();
+    await page.getByTestId('chat-widget-launcher').click();
     await expect(page.getByTestId('chat-widget-panel')).toBeVisible({ timeout: 15000 });
 
     const chip = page.getByTestId('chat-suggested-question').first();
@@ -49,7 +49,7 @@ test.describe.skip('Chat widget', () => {
 
   test('ESC closes chat panel', async ({ page }) => {
     await page.goto('/');
-    await page.getByTestId('chat-widget-toggle').click();
+    await page.getByTestId('chat-widget-launcher').click();
     await expect(page.getByTestId('chat-widget-panel')).toBeVisible({ timeout: 15000 });
     await page.keyboard.press('Escape');
     await expect(page.getByTestId('chat-widget-panel')).not.toBeVisible();
@@ -59,7 +59,7 @@ test.describe.skip('Chat widget', () => {
     page,
   }) => {
     await page.goto('/');
-    await page.getByTestId('chat-widget-toggle').click();
+    await page.getByTestId('chat-widget-launcher').click();
     await expect(page.getByTestId('chat-widget-panel')).toBeVisible({ timeout: 15000 });
     const input = page.getByTestId('chat-input');
     await input.fill('xyzzy nothing related');

@@ -53,8 +53,69 @@ export function AboutPageContent() {
         </div>
       </section>
 
+      <section className="page-home-section about-why-strip about-zigzag about-zigzag--left" aria-label="Why Mine Performance">
+        <div className="container">
+          <div className="about-zigzag-inner">
+            <div className="about-zigzag-content">
+              <span className="about-section-num" aria-hidden>1</span>
+              <h2 className="about-why-strip-title">
+                <EditableContent contentKey="about_why_heading" fallback="Why Mine Performance" as="span" />
+              </h2>
+              <ul className="about-why-strip-list" role="list">
+                <li><strong>Data-driven</strong> — Velocity, spin rate, exit velo, and assessments tracked over time.</li>
+                <li><strong>Pro coaching</strong> — D1 experience, certifications, and long-term development focus.</li>
+                <li><strong>Full facility</strong> — Cages, pitching lab, S&C, and assessment zones under one roof.</li>
+                <li><strong>Clear path</strong> — Plans that scale from youth through college commit.</li>
+              </ul>
+            </div>
+            <div className="about-zigzag-visual about-zigzag-visual--placeholder" aria-hidden>
+              <span className="about-zigzag-visual-label">Why us</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-home-section about-facility-block about-zigzag about-zigzag--right">
+        <div className="container">
+          <div className="about-zigzag-inner">
+            <div className="about-zigzag-content about-zigzag-content--order-2">
+              <span className="about-section-num" aria-hidden>2</span>
+              <h2>
+                <EditableContent contentKey="about_facility_heading" fallback="Facility" as="span" />
+              </h2>
+              <p className="section-sub" style={{ maxWidth: '100%' }}>
+                <EditableContent contentKey="about_facility_sub" fallback="Our space includes batting cages, a pitching lab, strength and conditioning area, and assessment zones designed for capturing velocity, spin rate, exit velocity, and more." as="span" />
+              </p>
+            </div>
+            <div className="about-zigzag-visual about-zigzag-visual--placeholder" aria-hidden>
+              <span className="about-zigzag-visual-label">Facility</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-home-section alt-bg about-see-facility">
+        <div className="container">
+          <span className="about-section-num" aria-hidden>3</span>
+          <h2>
+            <EditableContent contentKey="about_see_facility_heading" fallback="See the facility" as="span" />
+          </h2>
+          <p className="section-sub" style={{ maxWidth: '640px', marginBottom: '1.5rem' }}>
+            <EditableContent contentKey="about_see_facility_sub" fallback="Take a look inside our training space." as="span" />
+          </p>
+          <div className="facility-video-wrap">
+            <div className="facility-video-placeholder" aria-hidden>
+              <span className="facility-video-placeholder-text">
+                <EditableContent contentKey="about_video_placeholder" fallback="Video coming soon" as="span" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="coaching-staff" className="page-home-section coaches-directory alt-bg" data-testid="coaching-staff">
         <div className="container">
+          <span className="about-section-num" aria-hidden>4</span>
           <h2>
             <EditableContent contentKey="about_coaching_heading" fallback="Coaching staff" as="span" />
           </h2>
@@ -106,35 +167,6 @@ export function AboutPageContent() {
             <Link href="/contact" className="btn btn-secondary">
               Contact us
             </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="page-home-section">
-        <div className="container">
-          <h2>
-            <EditableContent contentKey="about_facility_heading" fallback="Facility" as="span" />
-          </h2>
-          <p className="section-sub" style={{ maxWidth: '640px' }}>
-            <EditableContent contentKey="about_facility_sub" fallback="Our space includes batting cages, a pitching lab, strength and conditioning area, and assessment zones designed for capturing velocity, spin rate, exit velocity, and more." as="span" />
-          </p>
-        </div>
-      </section>
-
-      <section className="page-home-section alt-bg">
-        <div className="container">
-          <h2>
-            <EditableContent contentKey="about_see_facility_heading" fallback="See the facility" as="span" />
-          </h2>
-          <p className="section-sub" style={{ maxWidth: '640px', marginBottom: '1.5rem' }}>
-            <EditableContent contentKey="about_see_facility_sub" fallback="Take a look inside our training space." as="span" />
-          </p>
-          <div className="facility-video-wrap">
-            <div className="facility-video-placeholder" aria-hidden>
-              <span className="facility-video-placeholder-text">
-                <EditableContent contentKey="about_video_placeholder" fallback="Video coming soon" as="span" />
-              </span>
-            </div>
           </div>
         </div>
       </section>

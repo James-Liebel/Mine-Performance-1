@@ -109,15 +109,26 @@ export default function RentalsPage() {
       </section>
 
       <div className="container rentals-container">
-        <section className="rentals-section">
-          <h2 className="rentals-section-title">
-            <EditableContent contentKey="rentals_choose_date_heading" fallback="Choose a date" as="span" />
-          </h2>
-          <p className="rentals-section-desc text-muted">
-            <EditableContent contentKey="rentals_choose_date_desc" fallback="Select a day on the calendar, then pick a resource and time slot below." as="span" />
-          </p>
+        <nav className="rentals-step-bar" aria-label="Rental steps">
+          <div className="rentals-step-bar-item rentals-step-bar-item--active" aria-current="step">
+            <span className="rentals-step-bar-num">1</span>
+            <span><EditableContent contentKey="rentals_choose_date_heading" fallback="Choose a date" as="span" /></span>
+          </div>
+          <div className="rentals-step-bar-item">
+            <span className="rentals-step-bar-num">2</span>
+            <span><EditableContent contentKey="rentals_pick_resource_heading" fallback="Pick resource & time" as="span" /></span>
+          </div>
+        </nav>
+        <div className="rentals-two-col">
+          <section className="rentals-section rentals-col-calendar">
+            <h2 className="rentals-section-title">
+              <EditableContent contentKey="rentals_choose_date_heading" fallback="Choose a date" as="span" />
+            </h2>
+            <p className="rentals-section-desc text-muted">
+              <EditableContent contentKey="rentals_choose_date_desc" fallback="Select a day on the calendar, then pick a resource and time slot below." as="span" />
+            </p>
 
-          <div className="rentals-calendar-card card card-elevated">
+            <div className="rentals-calendar-card card card-elevated">
             <div className="rentals-calendar-header">
               <h3 className="rentals-calendar-month">{monthName} {year}</h3>
               <div className="rentals-calendar-nav">
@@ -187,12 +198,12 @@ export default function RentalsPage() {
               </p>
             )}
           </div>
-        </section>
+          </section>
 
-        <section className="rentals-section">
-          <h2 className="rentals-section-title">
-            <EditableContent contentKey="rentals_pick_resource_heading" fallback="Pick a resource and time" as="span" />
-          </h2>
+          <section className="rentals-section rentals-col-resources">
+            <h2 className="rentals-section-title">
+              <EditableContent contentKey="rentals_pick_resource_heading" fallback="Pick a resource and time" as="span" />
+            </h2>
           <p className="rentals-section-desc text-muted">
             {selectedDate ? (
               <EditableContent
@@ -311,7 +322,8 @@ export default function RentalsPage() {
               )}
             </aside>
           </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   );

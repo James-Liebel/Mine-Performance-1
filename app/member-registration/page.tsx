@@ -34,10 +34,17 @@ export default function MemberRegistrationPage() {
       .catch(() => setMemberships(MEMBERSHIPS));
   }, []);
 
+  type CategoryFilter = 'all' | 'adult' | 'youth' | 'remote';
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
+
   const adultMemberships = memberships.filter((m) => m.category === 'adult');
   const youthMemberships = memberships.filter((m) => m.category === 'youth');
   const remoteMemberships = memberships.filter((m) => m.category === 'remote');
-  const youthAndRemoteMemberships = [...youthMemberships, ...remoteMemberships];
+  const allMemberships = [...adultMemberships, ...youthMemberships, ...remoteMemberships];
+  const filteredMemberships =
+    categoryFilter === 'all'
+      ? allMemberships
+      : memberships.filter((m) => m.category === categoryFilter);
 
   const openModal = (membership: Membership) => {
     const defaultOption =
@@ -74,80 +81,51 @@ export default function MemberRegistrationPage() {
         </div>
       </section>
 
-      <div className="container training-options-container">
-        <section className="credits-explainer-section credits-explainer-section--compact" style={{ marginBottom: '1rem' }}>
-          <CreditsExplainer compact />
-        </section>
-        <p className="training-options-offerings-intro text-muted" style={{ marginBottom: '0.75rem', fontSize: '0.95rem' }}>
-          <EditableContent contentKey="member_reg_offerings_intro" fallback="Select a category to jump to plans:" as="span" />
-        </p>
-        <section className="training-options-section programs-summary-section programs-summary-section--minimal">
-          <div className="membership-categories-row">
-            <div className="membership-category-block">
-              <h3 className="training-options-section-title">Adult (10U+)</h3>
-              <ul className="membership-category-list" role="list">
-                {adultMemberships.map((m) => (
-                  <li key={m.id}>
-                    <Link href={`#membership-${m.id}`}>{m.name}</Link>
-                  </li>
+      <div className="container training-options-container training-options-with-sidebar">
+        <div className="training-options-layout">
+          <aside className="training-options-sidebar" aria-label="Filter plans">
+            <section className="credits-explainer-section credits-explainer-section--compact">
+              <CreditsExplainer compact />
+            </section>
+            <div className="training-options-filter-block">
+              <span className="training-options-filter-label">Show</span>
+              <div className="training-options-filter-pills" role="group" aria-label="Plan category">
+                {(['all', 'adult', 'youth', 'remote'] as const).map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    className={`training-options-pill ${categoryFilter === cat ? 'training-options-pill--active' : ''}`}
+                    onClick={() => setCategoryFilter(cat)}
+                    aria-pressed={categoryFilter === cat}
+                  >
+                    {cat === 'all' ? 'All' : cat === 'adult' ? 'Adult' : cat === 'youth' ? 'Youth' : 'Remote'}
+                  </button>
                 ))}
-              </ul>
+              </div>
             </div>
-            <div className="membership-category-block">
-              <h3 className="training-options-section-title">Youth (under 10U)</h3>
-              <ul className="membership-category-list" role="list">
-                {youthMemberships.map((m) => (
-                  <li key={m.id}>
-                    <Link href={`#membership-${m.id}`}>{m.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="membership-category-block">
-              <h3 className="training-options-section-title">Remote</h3>
-              <ul className="membership-category-list" role="list">
-                {remoteMemberships.map((m) => (
-                  <li key={m.id}>
-                    <Link href={`#membership-${m.id}`}>{m.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <p className="training-options-listings-intro text-muted" style={{ marginTop: '1.25rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-          <EditableContent contentKey="member_reg_listings_intro" fallback="Plans below match the categories above — click a plan for details and pricing." as="span" />
-        </p>
-
-        <section className="training-options-section">
-          <h2 className="training-options-section-title">
-            <EditableContent contentKey="member_reg_adult_title" fallback="Adult (10U and older)" as="span" />
-          </h2>
-          <p className="training-options-section-desc text-muted">
-            <EditableContent contentKey="member_reg_adult_desc" fallback="Skill development, performance training, and recovery." as="span" />
-          </p>
-          <TrainingOptionsGrid memberships={adultMemberships} onSelect={openModal} isLoggedIn={isLoggedIn} />
-        </section>
-
-        <section className="training-options-section">
-          <h2 className="training-options-section-title">
-            <EditableContent contentKey="member_reg_youth_remote_title" fallback="Youth & remote (under 10U)" as="span" />
-          </h2>
-          <p className="training-options-section-desc text-muted">
-            <EditableContent contentKey="member_reg_youth_remote_desc" fallback="Youth athletes under 10U and remote training programs." as="span" />
-          </p>
-          <TrainingOptionsGrid memberships={youthAndRemoteMemberships} onSelect={openModal} isLoggedIn={isLoggedIn} />
-        </section>
-
-        <p className="training-options-help text-muted">
+          </aside>
+          <main className="training-options-main">
+            <h2 className="training-options-all-plans-heading">
+              <EditableContent contentKey="member_reg_listings_intro" fallback="Compare plans — click a plan for details and pricing." as="span" />
+            </h2>
+            <section className="training-options-section training-options-all-plans" aria-labelledby="all-plans-heading">
+              <p id="all-plans-heading" className="visually-hidden">All membership plans</p>
+              <TrainingOptionsGrid
+                memberships={filteredMemberships}
+                onSelect={openModal}
+                isLoggedIn={isLoggedIn}
+              />
+            </section>
+            <p className="training-options-help text-muted">
           <EditableContent contentKey="member_reg_help_before" fallback="Not sure which plan fits? " as="span" />
           <Link href="/contact">Contact us</Link>
           <EditableContent contentKey="member_reg_help_after" fallback=" and we'll help you choose." as="span" />
-        </p>
-        <p className="training-options-spt-footnote text-muted" style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
-          <EditableContent contentKey="member_reg_spt_definition" fallback="Strength = Sports Performance Training (strength, movement, conditioning)." as="span" />
-        </p>
+            </p>
+            <p className="training-options-spt-footnote text-muted" style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
+              <EditableContent contentKey="member_reg_spt_definition" fallback="Strength = Sports Performance Training (strength, movement, conditioning)." as="span" />
+            </p>
+          </main>
+        </div>
       </div>
 
       {modal.open && modal.membership && (

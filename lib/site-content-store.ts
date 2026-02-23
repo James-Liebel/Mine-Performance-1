@@ -12,7 +12,7 @@ const contactHoursDefault = SITE_HOURS.join('\n');
 export const SITE_CONTENT_DEFAULTS: Record<string, string> = {
   // Home (hero used on homepage StoryProblem)
   hero_tag: 'Florence, KY — Baseball training',
-  hero_heading: 'Your baseball training, quantified.',
+  hero_heading: 'Mine Performance Baseball Academy',
   hero_sub: '',
   hero_space_offerings: 'Batting cages, pitching lab, weight room, assessment area.',
   hero_train_rent_line: 'Book a rental by the hour, or get a membership and do training with our programs — choose what fits.',
