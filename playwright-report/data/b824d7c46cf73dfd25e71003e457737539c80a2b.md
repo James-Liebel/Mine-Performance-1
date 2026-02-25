@@ -31,42 +31,46 @@
             - link "Contact" [ref=e22] [cursor=pointer]:
               - /url: /contact
           - listitem [ref=e23]:
-            - link "Book an Evaluation" [ref=e24] [cursor=pointer]:
-              - /url: /start
-          - listitem [ref=e25]:
-            - generic [ref=e26] [cursor=pointer]: …
-  - main [ref=e27]:
-    - generic [ref=e28]:
-      - generic [ref=e30]:
-        - heading "About Mine Performance Academy" [level=1] [ref=e31]
-        - paragraph [ref=e32]: Mine Performance Academy is a purpose-built baseball training facility in Florence, KY. We combine data-driven coaching, a fully equipped training space, and clear development plans for athletes from youth through college.
-      - generic [ref=e34]:
-        - heading "Coaching staff" [level=2] [ref=e35]
-        - paragraph [ref=e36]: Our coaches bring D1 playing experience, certifications, and hundreds of athletes trained. They're focused on measurable progress, smart programming, and long-term development.
-        - generic [ref=e37]:
-          - complementary "Filter coaches" [ref=e38]:
-            - generic [ref=e39]:
-              - generic [ref=e40]: Specialty
-              - combobox [ref=e41] [cursor=pointer]:
-                - option "All" [selected]
-            - generic [ref=e42]:
-              - generic [ref=e43]: Sort by
-              - combobox [ref=e44] [cursor=pointer]:
-                - option "Name A–Z" [selected]
-                - option "Title"
-          - paragraph [ref=e46]: No coaches match. Try changing the filter.
-        - generic [ref=e47]:
-          - link "View memberships" [ref=e48] [cursor=pointer]:
-            - /url: /member-registration
-          - link "Contact us" [ref=e49] [cursor=pointer]:
-            - /url: /contact
-      - generic [ref=e51]:
-        - heading "Facility" [level=2] [ref=e52]
-        - paragraph [ref=e53]: Our space includes batting cages, a pitching lab, strength and conditioning area, and assessment zones designed for capturing velocity, spin rate, exit velocity, and more.
-      - generic [ref=e55]:
-        - heading "See the facility" [level=2] [ref=e56]
-        - paragraph [ref=e57]: Take a look inside our training space.
-        - generic [ref=e60]: Video coming soon
+            - generic [ref=e24] [cursor=pointer]: …
+  - main [ref=e25]:
+    - generic [ref=e27]:
+      - generic "Visit us" [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e31]: Address
+          - generic [ref=e32]:
+            - generic [ref=e33]: Phone
+            - link:
+              - /url: "tel:"
+          - generic [ref=e34]:
+            - generic [ref=e35]: Email
+            - link:
+              - /url: "mailto:"
+          - generic [ref=e36]:
+            - generic [ref=e37]: Hours
+            - generic [ref=e38]: Mon–Fri 8am–9pm · Sat–Sun 10am–8pm
+          - link "Directions" [ref=e40] [cursor=pointer]:
+            - /url: https://www.google.com/maps/search/?api=1&query=
+            - generic [ref=e41]: Directions
+      - generic [ref=e42]:
+        - heading "Contact Us" [level=1] [ref=e43]
+        - paragraph [ref=e44]: Book a session, ask about programs, or schedule a facility tour. We're here to help.
+        - generic [ref=e45]:
+          - heading "Send a message" [level=2] [ref=e46]
+          - form "Contact form" [ref=e47]:
+            - generic [ref=e48]:
+              - generic [ref=e49]: Name
+              - textbox "Name" [ref=e50]
+            - generic [ref=e51]:
+              - generic [ref=e52]: Email
+              - textbox "Email" [ref=e53]
+            - generic [ref=e54]:
+              - generic [ref=e55]: Phone (optional)
+              - textbox "Phone (optional)" [ref=e56]
+            - generic [ref=e57]:
+              - generic [ref=e58]: Message
+              - textbox "Message" [ref=e59]:
+                - /placeholder: Tell us about your goals, ask about programs, or request a session time...
+            - button "Send message" [ref=e60] [cursor=pointer]
   - button "Open chat" [ref=e61] [cursor=pointer]:
     - img [ref=e62]
   - contentinfo [ref=e64]:

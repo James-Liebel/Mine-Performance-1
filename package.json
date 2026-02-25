@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "prepush": "npm run lint && npm run typecheck && npm run test -- --run && npm run build",
     "security:check": "npm run security:audit",
-    "security:secrets": "echo 'Secret scan runs in CI via Gitleaks. For local scan: install gitleaks and run gitleaks detect'",
+    "security:secrets": "npx -y gitleaks detect --no-git --source . --config .gitleaks.toml --redact",
     "security:audit": "npm audit --audit-level=high",
     "security:audit:ci": "npm audit --audit-level=critical",
     "crawl": "npx tsx scripts/crawl-statstak.ts",

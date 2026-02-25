@@ -1,0 +1,90 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - navigation "Main navigation" [ref=e4]:
+      - generic [ref=e5]:
+        - link "Mine Performance" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e9]: Mine Performance
+        - list [ref=e10]:
+          - listitem [ref=e11]:
+            - link "Programs" [ref=e12] [cursor=pointer]:
+              - /url: /programs
+          - listitem [ref=e13]:
+            - link "About us" [ref=e14] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e15]:
+            - link "Scheduling" [ref=e16] [cursor=pointer]:
+              - /url: /events
+          - listitem [ref=e17]:
+            - link "Rentals" [ref=e18] [cursor=pointer]:
+              - /url: /rentals
+          - listitem [ref=e19]:
+            - link "Commits" [ref=e20] [cursor=pointer]:
+              - /url: /results
+          - listitem [ref=e21]:
+            - link "Contact" [ref=e22] [cursor=pointer]:
+              - /url: /contact
+          - listitem [ref=e23]:
+            - generic [ref=e24] [cursor=pointer]: …
+  - main [ref=e25]:
+    - paragraph [ref=e27]: Loading…
+  - button "Open chat" [ref=e28] [cursor=pointer]:
+    - img [ref=e29]
+  - contentinfo [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - link "Mine Performance" [ref=e34] [cursor=pointer]:
+          - /url: /
+        - paragraph [ref=e35]: Data-driven baseball training
+        - generic "Social links" [ref=e36]:
+          - link "Instagram" [ref=e37] [cursor=pointer]:
+            - /url: https://www.instagram.com/mineperformance/?hl=en
+            - img [ref=e38]
+          - link "Facebook" [ref=e40] [cursor=pointer]:
+            - /url: https://www.facebook.com/profile.php?id=61569199182719
+            - img [ref=e41]
+          - link "X (Twitter)" [ref=e43] [cursor=pointer]:
+            - /url: https://x.com/mineperform_spt
+            - img [ref=e44]
+          - link "YouTube" [ref=e46] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCnyrrOUDQLPbicY8jutpu1A
+            - img [ref=e47]
+      - generic [ref=e49]:
+        - heading "Train" [level=4] [ref=e50]
+        - link "Memberships" [ref=e51] [cursor=pointer]:
+          - /url: /member-registration
+        - link "About us" [ref=e52] [cursor=pointer]:
+          - /url: /about#coaching-staff
+        - link "Events" [ref=e53] [cursor=pointer]:
+          - /url: /events
+        - link "Rentals" [ref=e54] [cursor=pointer]:
+          - /url: /rentals
+      - generic [ref=e55]:
+        - heading "Athletes" [level=4] [ref=e56]
+        - link "College commits" [ref=e57] [cursor=pointer]:
+          - /url: /results
+        - link "Login" [ref=e58] [cursor=pointer]:
+          - /url: /login
+      - generic [ref=e59]:
+        - heading "Location & hours" [level=4] [ref=e60]
+        - paragraph [ref=e61]: 4999 Houston Rd Suite 500-2, Florence, KY 41042
+        - link "(513) 384-3840" [ref=e62] [cursor=pointer]:
+          - /url: tel:5133843840
+        - link "Ryan@mineperformanceacademy.com" [ref=e63] [cursor=pointer]:
+          - /url: mailto:Ryan@mineperformanceacademy.com
+        - list "Hours" [ref=e64]:
+          - listitem [ref=e65]: "Monday – Friday: 8 am – 9 pm"
+          - listitem [ref=e66]: "Saturday – Sunday: 10 am – 8 pm"
+    - generic [ref=e67]:
+      - paragraph [ref=e68]: © 2026 Mine Performance Academy. All rights reserved.
+      - paragraph [ref=e69]:
+        - text: Powered by
+        - link "The Futures App" [ref=e70] [cursor=pointer]:
+          - /url: https://thefuturesapp.com
+```
