@@ -47,12 +47,10 @@ jobs:
           if [ -d app/admin ]; then mv app/admin app/_admin_gh_pages; fi
 
       - name: Build for GitHub Pages
-        run: npm run build
-
-      - name: Check export output
         run: |
+          npm run build
           if [ ! -d out ]; then
-            echo "::error::Build did not produce out/ directory. Check the Build step for errors."
+            echo "::error::Build did not produce out/ directory. Check the build output above for errors."
             ls -la .next 2>/dev/null || true
             exit 1
           fi
@@ -64,7 +62,7 @@ jobs:
           if [ -d app/_api_gh_pages ]; then mv app/_api_gh_pages app/api; fi
           if [ -d app/_admin_gh_pages ]; then mv app/_admin_gh_pages app/admin; fi
 
-      # Ensure public assets (coaches-fallback.json, mp-logo.png, etc.) are at basePath so they load on the deployed site.
+      # Copy public/ (coaches-fallback.json, mp-logo.png, images/framer/*, etc.) into export so they load on the deployed site. Commit images under public/ for them to transfer.
       - name: Copy public assets to export at basePath
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
@@ -90,9 +88,16 @@ jobs:
           fi
 
       - name: Upload artifact
+        if: hashFiles('out/**') != ''
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./out
+
+      - name: Fail if no export to upload
+        if: hashFiles('out/**') == ''
+        run: |
+          echo "::error::No export output (out/) found. Build did not produce a static export."
+          exit 1
 
   deploy:
     needs: build
