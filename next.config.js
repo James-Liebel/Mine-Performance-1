@@ -4,12 +4,12 @@ const basePath = process.env.BASE_PATH || '';
 
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    // Always serve images directly so static exports don't rely on /_next/image
+    unoptimized: true,
+  },
   ...(isGhPages && {
     output: 'export',
-    images: {
-      // Static export (GitHub Pages) has no image optimization server; serve images directly
-      unoptimized: true,
-    },
   }),
   ...(basePath && { basePath, assetPrefix: basePath }),
   ...(!isGhPages && {
