@@ -8,8 +8,8 @@ export const IMAGES = {
   logo: {
     src: `${basePath}/mp-logo.png`,
     alt: 'Mine Performance logo',
-    width: 48,
-    height: 48,
+    width: 52,
+    height: 52,
   },
 } as const;
 
