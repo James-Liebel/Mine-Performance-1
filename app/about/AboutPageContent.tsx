@@ -5,23 +5,31 @@ import Link from 'next/link';
 import { CoachesClient, type Coach } from '@/app/coaches/CoachesClient';
 import { EditableContent } from '@/components/EditableContent';
 
+const basePath = typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_BASE_PATH || process.env.BASE_PATH || '') : '';
+
+function fetchCoaches(): Promise<Coach[]> {
+  return fetch(`${basePath}/api/coaches`)
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error('Not found'))))
+    .then((data) => (Array.isArray(data) ? data : []))
+    .catch(() =>
+      fetch(`${basePath}/coaches-fallback.json`)
+        .then((r) => (r.ok ? r.json() : []))
+        .then((data) => (Array.isArray(data) ? data : []))
+        .catch(() => [])
+    );
+}
+
 export function AboutPageContent() {
   const [coaches, setCoaches] = useState<Coach[]>([]);
   const [filterSpecialty, setFilterSpecialty] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'name' | 'title'>('name');
 
   useEffect(() => {
-    fetch('/api/coaches')
-      .then((r) => r.json())
-      .then((data) => setCoaches(Array.isArray(data) ? data : []))
-      .catch(() => setCoaches([]));
+    fetchCoaches().then(setCoaches);
   }, []);
 
   const refetchCoaches = () => {
-    fetch('/api/coaches')
-      .then((r) => r.json())
-      .then((data) => setCoaches(Array.isArray(data) ? data : []))
-      .catch(() => {});
+    fetchCoaches().then(setCoaches);
   };
 
   const specialties = useMemo(() => {
@@ -152,9 +160,14 @@ export function AboutPageContent() {
             </aside>
             <div className="coaches-directory-main">
               {filteredAndSortedCoaches.length === 0 ? (
-                <p className="coaches-empty-state" data-testid="coaches-empty-state">
-                  No coaches match. Try changing the filter.
-                </p>
+                <div className="coaches-empty-state" data-testid="coaches-empty-state">
+                  <p>No coaches match. Try changing the filter.</p>
+                  {basePath && (
+                    <p style={{ marginTop: '0.75rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                      Coach listings are available on the full site.
+                    </p>
+                  )}
+                </div>
               ) : (
                 <CoachesClient coaches={filteredAndSortedCoaches} onCoachChange={refetchCoaches} />
               )}
