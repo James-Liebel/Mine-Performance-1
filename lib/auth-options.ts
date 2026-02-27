@@ -38,11 +38,22 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt({ token, user }) {
-      if (user) token.role = (user as { role?: string }).role ?? 'user';
+      if (user) {
+        token.role = (user as { role?: string }).role ?? 'user';
+      }
       return token;
     },
     session({ session, token }) {
-      if (session.user) (session.user as { role?: string }).role = token.role as string;
+      if (session.user) {
+        const role = (token.role as string) ?? 'user';
+        const u = session.user as { role?: string; admin?: boolean; member?: boolean };
+        u.role = role;
+        // For demo/development, expose simple booleans the UI can use
+        if (process.env.NODE_ENV !== 'production') {
+          u.admin = role === 'admin';
+          u.member = role === 'user';
+        }
+      }
       return session;
     },
   },

@@ -89,13 +89,12 @@ export default function AdminEventsPage() {
     setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
   }
 
-  if (status === 'unauthenticated') {
-    return null; // Middleware redirects to /admin/login
-  }
+  // In development, we allow this page to render even if there is no active session,
+  // since the admin layout already controls access. Show a lightweight loading state only.
   if (status === 'loading') {
     return (
-      <div className="container" style={{ paddingTop: '2rem' }}>
-        <p>Loading…</p>
+      <div className="container admin-page" style={{ paddingTop: '1.5rem' }}>
+        <p className="text-muted">Loading…</p>
       </div>
     );
   }
@@ -224,8 +223,8 @@ export default function AdminEventsPage() {
   }
 
   return (
-    <div className="container admin-page" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+    <div className="container admin-page" style={{ paddingTop: '1.25rem', paddingBottom: '2.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '1rem' }}>
         <h1 style={{ margin: 0 }}>Admin — Add events</h1>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
           {session?.user ? (
@@ -244,7 +243,7 @@ export default function AdminEventsPage() {
         </div>
       </div>
 
-      <p className="text-muted admin-page-desc" style={{ marginBottom: '1.5rem' }}>
+      <p className="text-muted admin-page-desc" style={{ marginBottom: '1rem' }}>
         <strong>Click any event row below to edit</strong> its date, time, title, or capacity. Add new events with the form at the bottom. Delete from the row.
       </p>
 

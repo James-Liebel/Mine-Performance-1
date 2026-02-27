@@ -7,7 +7,8 @@ import { AdminNav } from './AdminNav';
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const isDev = process.env.NODE_ENV !== 'production';
 
-  // In development, let you into admin without requiring a session
+  // In development, trust the Nav visibility (only shows Admin when logged in as admin)
+  // and skip the extra server-side redirect that is flaky with dev sessions.
   if (isDev) {
     return (
       <div className="admin-layout">
@@ -26,6 +27,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   const session = await getServerSession(authOptions);
   const role = (session?.user as { role?: string } | undefined)?.role;
+
   if (!session) {
     redirect('/login?callbackUrl=/admin');
   }

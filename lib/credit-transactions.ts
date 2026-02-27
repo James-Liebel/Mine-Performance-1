@@ -97,3 +97,34 @@ export function getTransactionsByEmail(
     .slice(-limit)
     .reverse();
 }
+
+/**
+ * Aggregate summary across all credit transactions — used for admin analytics.
+ */
+export function getTransactionsSummary(): {
+  totalAdded: number;
+  totalSpent: number;
+  netCredits: number;
+  byReason: Record<string, number>;
+  transactionCount: number;
+} {
+  let totalAdded = 0;
+  let totalSpent = 0;
+  const byReason: Record<string, number> = {};
+
+  for (const tx of transactions) {
+    if (tx.amount > 0) totalAdded += tx.amount;
+    if (tx.amount < 0) totalSpent += Math.abs(tx.amount);
+    const key = tx.reason;
+    byReason[key] = (byReason[key] ?? 0) + tx.amount;
+  }
+
+  return {
+    totalAdded,
+    totalSpent,
+    netCredits: totalAdded - totalSpent,
+    byReason,
+    transactionCount: transactions.length,
+  };
+}
+

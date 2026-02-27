@@ -1,0 +1,245 @@
+Mine Performance – Simple Cost & Savings Breakdown
+
+1. What I’m charging
+- Full new website + backend + admin: $7,000–$9,000 (I can quote $8,000).
+- Monthly maintenance (my work): $200/month.
+- Hosting & tools (they pay directly): about $25–$50/month (Vercel, Supabase, domain).
+
+2. StatStak vs my custom site – simple fee math
+- StatStak payment fees: about 5.3% of revenue (3.9% + $2.79/transaction, assuming ~$200 average charge).
+- Stripe payment fees: about 3.05% of revenue (2.9% + $0.30/transaction).
+- Approximate savings by switching to Stripe: about 2.25% of all processed revenue.
+
+3. Easy base example – $10,000/month in payments
+- Revenue: $10,000/month.
+- StatStak fees (~5.3%): ≈ $530/month.
+- Stripe fees (~3.05%): ≈ $305/month.
+- Monthly savings: ≈ $225/month.
+- Yearly savings: ≈ $2,700/year.
+
+4. How to estimate savings for any revenue
+- Simple rule: Savings ≈ 2.25% of monthly revenue.
+- Formula: monthly_savings ≈ 0.0225 × monthly_revenue.
+
+Examples:
+- $20,000/month → savings ≈ 0.0225 × 20,000 ≈ $450/month.
+- $40,000/month → savings ≈ 0.0225 × 40,000 ≈ $900/month.
+- $100,000/month → savings ≈ 0.0225 × 100,000 ≈ $2,250/month.
+
+5. How this relates to my price
+- My one-time project fee ($7,000–$9,000) is in line with or lower than many similar custom builds for sports facilities.
+- The ongoing infra cost is small ($25–$50/month).
+- At just $10,000/month in payments, fee savings (~$225/month) are already close to covering:
+  - Infra: ~$25–$50/month.
+  - A good chunk of my $200/month maintenance.
+- At higher revenues, the fee savings quickly become much larger than the combined cost of:
+  - The new platform’s infra.
+  - My maintenance.
+
+6. One-sentence pitch summary
+- “For a one-time $7,000–$9,000 to build and about $25–$50/month in hosting plus a $200/month maintenance plan, you get a fully custom platform you own, and by moving from StatStak’s ~5.3% in fees to Stripe’s ~3.05%, you save roughly 2.25% of all payments—for example, about $225/month on $10,000 in revenue—and those savings grow proportionally as your athlete revenue increases.”
+
+Mine Performance – New Website Cost & Savings Breakdown
+
+1. Overview
+Goal: Replace the current StatStak website with a custom website + backend (Supabase + Stripe) that:
+- You fully own and control.
+- Supports public marketing pages, athlete/parent logins, and an admin portal (events, pricing, waivers, users).
+- Reduces long-term processing costs compared to StatStak.
+
+2. One-time project cost (your work)
+- Full new website + backend + admin: $7,000–$9,000 (fixed project fee range; target $8,000)
+
+Included:
+- Custom public site (Home, About, Programs, Coaches, Events, Rentals, FAQ, Contact, etc.).
+- Member registration + login + profile (credits, waivers, notifications, family members).
+- Admin dashboard (events calendar, recurring events, pricing, waivers, users).
+- Stripe payments integration for programs/credits.
+- Supabase data layer for events, members, waivers, credits, etc.
+- Launch (DNS/domain setup) + small round of post-launch tweaks.
+
+3. Ongoing fixed monthly costs (owner pays infra; you are separate)
+
+3.1 Infrastructure (paid directly by owner)
+Approximate:
+- Vercel (hosting Next.js app): ~ $20/month
+- Supabase (DB + auth):
+  - Start on free tier.
+  - Budget $25/month if/when they grow.
+- Domain name: ~ $10–$20/year ⇒ $1–$2/month
+
+Total infra (excluding processing fees): $25–$50 per month
+
+3.2 Your monthly maintenance fee
+- Basic maintenance & updates: $200/month
+
+Includes:
+- Up to 4–5 content/structure changes per month (update programs, dates, pricing, add/remove camps, edit copy/images).
+- Keeping dependencies/hosting config up to date.
+- Basic monitoring and small fixes.
+
+4. Processing fees: StatStak vs Stripe
+
+4.1 Fee structures (approx.)
+- StatStak: 3.9% + $2.79 per transaction
+- Stripe (typical): about 2.9% + $0.30 per transaction
+
+Assume:
+- Average transaction size: $200 (typical camp/membership/payment chunk).
+- For monthly processed revenue R:
+  - Number of transactions ≈ R / 200
+
+Then:
+- StatStak monthly fees ≈ 5.3% of revenue
+  (3.9% card fee + $2.79 per $200 ≈ 1.4%)
+- Stripe monthly fees ≈ 3.0% of revenue
+  (2.9% card fee + $0.30 per $200 ≈ 0.15%)
+
+So Stripe saves ≈ 2.25% of processed revenue compared to StatStak.
+
+5. Revenue-based savings scenarios
+
+5.1 Example: 500–1,000 athletes
+Rough idea of revenue:
+- If 500 athletes average $100/month → $50,000/month revenue.
+- If 1,000 athletes average $100/month → $100,000/month revenue.
+- If average spend is lower or higher, linearly scale the numbers below.
+
+Below are monthly fee comparisons at different revenue levels.
+
+5.2 Monthly fee comparison table (rounded)
+
+Revenue: $10,000/month
+- StatStak fees (~5.3%): ≈ $530
+- Stripe fees (~3.05%): ≈ $305
+- Monthly savings: ≈ $225
+- Annual savings: ≈ $2,700
+
+Revenue: $20,000/month
+- StatStak fees: ≈ $1,060
+- Stripe fees: ≈ $610
+- Monthly savings: ≈ $450
+- Annual savings: ≈ $5,400
+
+Revenue: $40,000/month
+- StatStak fees: ≈ $2,120
+- Stripe fees: ≈ $1,220
+- Monthly savings: ≈ $900
+- Annual savings: ≈ $10,800
+
+Rule of thumb:
+- Savings ≈ 2.25% of total processed revenue.
+- For every $10,000/month in payments, expect about $225/month in savings.
+
+6. Net effect after infra + your maintenance
+
+Owner’s new ongoing monthly costs (after the project is built):
+- Infra: assume mid-range $40/month (Vercel + Supabase + domain).
+- Your maintenance: $200/month.
+- Total “website & ops” overhead: $240/month.
+
+Compare that to fee savings:
+
+At $10,000/month in payments:
+- Fee savings: ≈ $225/month
+- Overhead (infra + maintenance): $240/month
+- Net: roughly break-even, with a much better site and full control.
+
+At $20,000/month in payments:
+- Fee savings: ≈ $450/month
+- Overhead: $240/month
+- Net positive: ≈ $210/month (≈ $2,520/year).
+
+At $40,000/month in payments:
+- Fee savings: ≈ $900/month
+- Overhead: $240/month
+- Net positive: ≈ $660/month (≈ $7,920/year).
+
+7. Short summary for pitching
+- Project: Full new website + backend + admin for Mine Performance – $7,000–$9,000 one-time (you can present $8,000 as the main quote).
+- Ongoing fixed costs:
+  - Infra (Vercel, Supabase, domain): $25–$50/month (paid directly by owner).
+  - Maintenance (you): $200/month.
+- Fee savings:
+  - StatStak ≈ 5.3% of revenue vs Stripe ≈ 3.0%.
+  - Saves ~2.25% of all processed revenue → about $225/month per $10,000 in payments.
+- Result:
+  - At moderate to high monthly revenue (realistic for 500–1,000 athletes), the new site both pays for itself over time and gives a much better, fully controlled platform, while still being competitively priced compared to many similar custom builds and sports SaaS platforms.
+
+8. Comparison to other options
+- Staying fully on StatStak:
+  - Upfront dev cost: $0.
+  - Platform fee: $0/month.
+  - Payment fees: ~3.9% + $2.79/transaction (≈5.3% of revenue).
+  - Pros: No build cost, built-in scheduling.
+  - Cons: Limited design/branding, no code ownership, higher long-term fees.
+
+- Other sports SaaS platforms (e.g. iSportz, eSoft Planner, etc.):
+  - Typical annual subscriptions: roughly $1,500–$15,000/year depending on package.
+  - Still pay card fees; limited customization and no full code ownership.
+
+- Other freelancers/agencies for similar builds:
+  - Custom sports/booking sites with memberships and payments commonly range from $6,000–$20,000+ depending on depth and experience.
+  - Many mid- to senior-level devs would quote $8,000–$15,000 for a platform with marketing pages, member accounts, admin dashboards, and Stripe/Supabase backend.
+
+- Your offer:
+  - One-time: $7,000–$9,000 (target $8,000) for a fully custom platform tailored to Mine Performance.
+  - Infra: $25–$50/month in the owner’s name.
+  - Maintenance: $200/month with clear scope for ongoing updates.
+  - Net: Pricing that is competitive with, and often lower than, comparable freelance builds and multi-thousand-dollar/year sports SaaS subscriptions, with full control and long-term fee savings.
+
+9. Higher average spend and seasonal revenue
+
+- Given: each athlete pays at least $300/month on average over the year.
+- 500 athletes → roughly $150,000/month at full utilization.
+- 1,000 athletes → roughly $300,000/month at full utilization.
+
+Using the same fee assumptions:
+- StatStak ≈ 5.3% of revenue.
+- Stripe ≈ 3.05% of revenue.
+- Savings ≈ 2.25% of revenue.
+
+Scenario A – 500 athletes (≈ $150,000/month)
+- StatStak fees (~5.3%): ≈ $7,950/month.
+- Stripe fees (~3.05%): ≈ $4,575/month.
+- Monthly savings: ≈ $3,375/month.
+- Annual savings (if consistent all year): ≈ $40,500/year.
+
+Scenario B – 1,000 athletes (≈ $300,000/month)
+- StatStak fees (~5.3%): ≈ $15,900/month.
+- Stripe fees (~3.05%): ≈ $9,150/month.
+- Monthly savings: ≈ $6,750/month.
+- Annual savings: ≈ $81,000/year.
+
+10. Seasonal patterns (busy vs slow months)
+
+Assume the facility is:
+- Busy 8 months of the year (in-season, near full utilization).
+- Slower 4 months of the year (off-season, at 50% of busy revenue).
+
+Example with 500 athletes (busy ≈ $150,000/month, slow ≈ $75,000/month):
+- Busy months (8 × $150,000):
+  - Savings per busy month: ≈ 2.25% × $150,000 ≈ $3,375.
+  - Total busy-month savings: 8 × $3,375 ≈ $27,000/year.
+- Slow months (4 × $75,000):
+  - Savings per slow month: ≈ 2.25% × $75,000 ≈ $1,688.
+  - Total slow-month savings: 4 × $1,688 ≈ $6,752/year.
+- Combined seasonal savings:
+  - ≈ $27,000 + $6,752 ≈ $33,752/year.
+
+Example with 1,000 athletes (busy ≈ $300,000/month, slow ≈ $150,000/month):
+- Busy months:
+  - Savings per busy month: ≈ 2.25% × $300,000 ≈ $6,750.
+  - Total busy-month savings: 8 × $6,750 ≈ $54,000/year.
+- Slow months:
+  - Savings per slow month: ≈ 2.25% × $150,000 ≈ $3,375.
+  - Total slow-month savings: 4 × $3,375 ≈ $13,500/year.
+- Combined seasonal savings:
+  - ≈ $54,000 + $13,500 ≈ $67,500/year.
+
+Conclusion:
+- Even with realistic seasonal ups and downs, moving from StatStak’s processing fees to Stripe via your custom platform saves tens of thousands of dollars per year at 500–1,000 athletes.
+- Those savings comfortably cover:
+  - The one-time $7,000–$9,000 build.
+  - The ongoing infra ($25–$50/month) and your $200/month maintenance.
+

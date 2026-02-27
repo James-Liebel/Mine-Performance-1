@@ -1,106 +1,171 @@
 'use client';
 
-const DEMO_PAST_PAYMENTS = [
-  { created: '2/16/26', event: '—', cost: '$266.55', refund: '—', description: 'Every 4 Weeks member registration payment for Pitching - 1 days for James Liebel' },
-  { created: '2/15/26', event: '2/18/26', cost: '—', refund: '—', description: 'Pitching for James Liebel, on Feb 18, 2026' },
-  { created: '1/19/26', event: '—', cost: '$266.55', refund: '—', description: 'Every 4 Weeks member registration payment for Pitching - 1 days' },
-  { created: '1/18/26', event: '1/21/26', cost: '—', refund: '—', description: 'Pitching for James Liebel, on Jan 21, 2026' },
-];
+import { useEffect, useState } from 'react';
+
+type CreditReason =
+  | 'stripe_purchase'
+  | 'stripe_refund'
+  | 'booking_spend'
+  | 'admin_adjustment'
+  | 'membership_grant'
+  | 'other';
+
+interface CreditTransaction {
+  id: string;
+  amount: number;
+  reason: CreditReason;
+  reference?: string;
+  createdAt: string;
+}
+
+interface MemberMeResponse {
+  email: string;
+  name: string | null;
+  credits: number;
+  membershipId: string;
+  creditHistory: CreditTransaction[];
+}
+
+function formatDate(iso: string): string {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  } catch {
+    return iso;
+  }
+}
+
+const REASON_LABEL: Record<CreditReason, string> = {
+  stripe_purchase: 'Stripe purchase',
+  stripe_refund: 'Refund',
+  booking_spend: 'Event booking',
+  admin_adjustment: 'Admin adjustment',
+  membership_grant: 'Membership',
+  other: 'Other',
+};
 
 export default function ProfilePaymentsPage() {
+  const [data, setData] = useState<MemberMeResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/member/me');
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json?.error || 'Failed to load payment info');
+        }
+        if (!cancelled) {
+          setData(json as MemberMeResponse);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setError(e instanceof Error ? e.message : 'Failed to load payment info');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const balance = data?.credits ?? 0;
+  const history = data?.creditHistory ?? [];
+
   return (
     <div className="container profile-payments-page" style={{ paddingTop: '1.5rem', paddingBottom: '3rem' }}>
       <div className="profile-payments-layout">
         <section className="profile-payment-info card card-elevated">
-          <h2 style={{ margin: '0 0 1rem', fontSize: '1.1rem' }}>Payment info</h2>
-          <div className="profile-balance-row">
-            <span>Facility $</span>
-            <strong>$0.00</strong>
-          </div>
-          <div className="profile-balance-row">
-            <span>Credits</span>
-            <strong>0</strong>
-          </div>
+          <h2 style={{ margin: '0 0 1rem', fontSize: '1.1rem' }}>Payment & credits</h2>
 
-          <div className="profile-card-section" style={{ marginTop: '1.5rem' }}>
-            <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-              Update facility credit card
+          {loading && <p className="text-muted">Loading…</p>}
+          {error && !loading && (
+            <p className="text-muted" style={{ color: 'var(--error, #c00)' }}>
+              {error}
             </p>
-            <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span aria-hidden>💳</span> VISA 5795
-            </p>
-          </div>
+          )}
 
-          <div className="profile-registration-section" style={{ marginTop: '1.5rem' }}>
-            <h3 style={{ margin: '0 0 0.75rem', fontSize: '1rem' }}>Member registration</h3>
-            <div className="profile-registration-card card" style={{ padding: '1rem', marginBottom: '0.75rem' }}>
-              <span className="profile-badge profile-badge--active">Active</span>
-              <p style={{ margin: '0.5rem 0 0', fontWeight: 600 }}>Pitching - 1 days</p>
-              <p style={{ margin: '0.25rem 0 0', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                Auto-payment of $266.55 in 25 days
-              </p>
-              <p style={{ margin: '0.25rem 0 0', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                Credits will be added in 24.8 days
-              </p>
-              <div style={{ marginTop: '0.75rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                <button type="button" className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
-                  Pause member registration
-                </button>
-                <button type="button" className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
-                  Cancel member registration
-                </button>
+          {!loading && !error && (
+            <>
+              <div className="profile-balance-row">
+                <span>Credits balance</span>
+                <strong>{balance}</strong>
               </div>
-            </div>
-            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Canceled Pitching - 1 days (past)
-            </p>
-            <p style={{ margin: '0.25rem 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Canceled Pitching - 1 days (past)
-            </p>
-          </div>
-
-          <div className="profile-prepaid-section" style={{ marginTop: '1.5rem' }}>
-            <h3 style={{ margin: '0 0 0.5rem', fontSize: '1rem' }}>Pre-paid events (4)</h3>
-            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-              Expires 3/16/26 Membership Credit
-            </p>
-          </div>
+              <p style={{ marginTop: '0.75rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                Credits are used to book events and sessions. Purchases, refunds, and admin adjustments all show up in the activity below.
+              </p>
+              {data?.membershipId && (
+                <div className="profile-registration-section" style={{ marginTop: '1.5rem' }}>
+                  <h3 style={{ margin: '0 0 0.5rem', fontSize: '1rem' }}>Active membership</h3>
+                  <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                    Membership ID: <strong>{data.membershipId}</strong>
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </section>
 
         <section className="profile-past-payments card card-elevated">
-          <h2 style={{ margin: '0 0 1rem', fontSize: '1.1rem' }}>Past payments</h2>
-          <div className="profile-payments-table-wrap">
-            <table className="profile-payments-table">
-              <thead>
-                <tr>
-                  <th>Created</th>
-                  <th>Event</th>
-                  <th>Cost</th>
-                  <th>Refund</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {DEMO_PAST_PAYMENTS.map((row, i) => (
-                  <tr key={i}>
-                    <td>{row.created}</td>
-                    <td>{row.event}</td>
-                    <td>{row.cost}</td>
-                    <td>{row.refund}</td>
-                    <td>{row.description}</td>
+          <h2 style={{ margin: '0 0 1rem', fontSize: '1.1rem' }}>Credits activity</h2>
+          {loading && <p className="text-muted">Loading…</p>}
+          {error && !loading && (
+            <p className="text-muted" style={{ color: 'var(--error, #c00)' }}>
+              {error}
+            </p>
+          )}
+          {!loading && !error && history.length === 0 && (
+            <p className="text-muted" style={{ fontSize: '0.9rem' }}>
+              No credit activity yet.
+            </p>
+          )}
+          {!loading && !error && history.length > 0 && (
+            <div className="profile-payments-table-wrap">
+              <table className="profile-payments-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Reference</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-muted" style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
-            Page 1 of 7
-          </p>
-          <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            = Unpaid
-          </p>
+                </thead>
+                <tbody>
+                  {history.map((tx) => (
+                    <tr key={tx.id}>
+                      <td>{formatDate(tx.createdAt)}</td>
+                      <td>
+                        {tx.amount > 0 ? `+${tx.amount}` : tx.amount}
+                      </td>
+                      <td>{REASON_LABEL[tx.reason] ?? tx.reason}</td>
+                      <td>{tx.reference ?? '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {!loading && !error && history.length > 0 && (
+            <p className="text-muted" style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
+              Positive amounts are credits added (e.g. Stripe purchase, membership); negative amounts are credits spent or deducted.
+            </p>
+          )}
         </section>
       </div>
     </div>
   );
 }
+
