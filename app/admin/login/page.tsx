@@ -11,7 +11,7 @@ function AdminLoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/admin/events';
+  const callbackUrl = searchParams?.get('callbackUrl') ?? '/admin/events';
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

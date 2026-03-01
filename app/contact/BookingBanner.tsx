@@ -7,11 +7,11 @@ import { getMembershipById } from '@/lib/memberships';
 
 export function BookingBanner() {
   const searchParams = useSearchParams();
-  const bookEventId = searchParams.get('book');
-  const planId = searchParams.get('plan');
-  const purchaseSingle = searchParams.get('purchase') === 'single';
-  const membershipId = searchParams.get('membership');
-  const membershipDays = searchParams.get('days');
+  const bookEventId = searchParams?.get('book');
+  const planId = searchParams?.get('plan');
+  const purchaseSingle = searchParams?.get('purchase') === 'single';
+  const membershipId = searchParams?.get('membership');
+  const membershipDays = searchParams?.get('days');
 
   if (membershipId) {
     const membership = getMembershipById(membershipId);

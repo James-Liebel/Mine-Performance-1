@@ -21,7 +21,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     if (!isDev && status === 'unauthenticated') {
       router.replace('/login?callbackUrl=/profile');
     }
-  }, [status, router]);
+  }, [status, router, isDev]);
 
   if (status === 'loading') {
     return (
