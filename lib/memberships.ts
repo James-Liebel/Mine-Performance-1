@@ -26,51 +26,17 @@ export interface Membership {
   timesAvailable?: string;
 }
 
-function dollarsToCents(value: number): number {
-  return Math.round(value * 100);
-}
-
-function buildOptions(
-  basePrice2Day: number,
-  daysConfig: 1 | 2 | 3
-): MembershipOption[] {
-  const base = basePrice2Day;
-  const oneDay = base - 100;
-  const twoDay = base;
-  const threeDay = base + 100;
-
+function build(p1?: number, p2?: number, p3?: number): MembershipOption[] {
   const opts: MembershipOption[] = [];
-
-  if (daysConfig === 2 || daysConfig === 3) {
-    opts.push({
-      id: '1-day',
-      label: '1 day per week',
-      daysPerWeek: 1,
-      priceCents: dollarsToCents(oneDay),
-    });
-    opts.push({
-      id: '2-day',
-      label: '2 days per week',
-      daysPerWeek: 2,
-      priceCents: dollarsToCents(twoDay),
-    });
-    if (daysConfig === 3) {
-      opts.push({
-        id: '3-day',
-        label: '3 days per week',
-        daysPerWeek: 3,
-        priceCents: dollarsToCents(threeDay),
-      });
-    }
-  } else {
-    opts.push({
-      id: '2-day',
-      label: '2 days per week',
-      daysPerWeek: 2,
-      priceCents: dollarsToCents(twoDay),
-    });
+  if (p1 !== undefined) {
+    opts.push({ id: '1-day', label: '1 day per week', daysPerWeek: 1, priceCents: p1 * 100 });
   }
-
+  if (p2 !== undefined) {
+    opts.push({ id: '2-day', label: '2 days per week', daysPerWeek: 2, priceCents: p2 * 100 });
+  }
+  if (p3 !== undefined) {
+    opts.push({ id: '3-day', label: '3 days per week', daysPerWeek: 3, priceCents: p3 * 100 });
+  }
   return opts;
 }
 
@@ -79,10 +45,10 @@ export const MEMBERSHIPS: Membership[] = [
     id: 'spt-pitching',
     name: 'Strength + Pitching',
     category: 'adult',
-    basePrice2Day: 399,
+    basePrice2Day: 400,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(399, 3),
-    description: 'Combined strength training and pitching development.',
+    options: build(300, 400, 500),
+    description: 'Performance Combo: Combined strength training and pitching development.',
     daysAvailable: ['Mon', 'Wed', 'Fri'],
     timesAvailable: '5:00 pm – 7:00 pm',
   },
@@ -90,98 +56,43 @@ export const MEMBERSHIPS: Membership[] = [
     id: 'spt-hitting',
     name: 'Strength + Hitting',
     category: 'adult',
-    basePrice2Day: 399,
+    basePrice2Day: 400,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(399, 3),
-    description: 'Strength work and hitting instruction in one plan.',
+    options: build(300, 400, 500),
+    description: 'Performance Combo: Strength work and hitting instruction in one plan.',
     daysAvailable: ['Tue', 'Thu', 'Sat'],
     timesAvailable: '6:00 pm – 8:00 pm',
   },
   {
-    id: 'spt',
-    name: 'Strength',
+    id: 'hitting-pitching-adult',
+    name: 'Hitting + Pitching',
     category: 'adult',
-    basePrice2Day: 299,
+    basePrice2Day: 400,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(299, 3),
-    description: 'Weight room and athletic development only.',
-    daysAvailable: ['Mon', 'Wed', 'Fri'],
-    timesAvailable: '5:00 pm – 7:00 pm',
-  },
-  {
-    id: 'hitting',
-    name: 'Hitting',
-    category: 'adult',
-    basePrice2Day: 349,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(349, 3),
-    description: 'Cage work, exit velocity, and approach refinement.',
-    daysAvailable: ['Mon', 'Wed', 'Fri'],
-    timesAvailable: '5:00 pm – 7:00 pm',
-  },
-  {
-    id: 'pitching',
-    name: 'Pitching',
-    category: 'adult',
-    basePrice2Day: 349,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(349, 3),
-    description: 'Velocity development, mechanics, and arm care.',
-    daysAvailable: ['Mon', 'Wed', 'Fri'],
-    timesAvailable: '5:00 pm – 7:00 pm',
-  },
-  {
-    id: 'catching',
-    name: 'Catching',
-    category: 'adult',
-    basePrice2Day: 349,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(349, 2),
-    description: 'Receiving, blocking, and game-calling development.',
-    daysAvailable: ['Tue', 'Thu'],
-    timesAvailable: '6:00 pm – 8:00 pm',
-  },
-  {
-    id: 'arm-care-development',
-    name: 'Arm Care & Development',
-    category: 'adult',
-    basePrice2Day: 299,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(299, 2),
-    description: 'Return-to-throw and injury prevention protocols.',
-    daysAvailable: ['Mon', 'Wed'],
-    timesAvailable: '5:00 pm – 6:30 pm',
-  },
-  {
-    id: 'hitting-arm-care-spt',
-    name: 'Hitting / Arm Care / Strength',
-    category: 'adult',
-    basePrice2Day: 449,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(449, 3),
-    description: 'Full mix of hitting, arm care, and strength.',
+    options: build(300, 400, 500),
+    description: 'Performance Combo: Dual focus on hitting and pitching development.',
     daysAvailable: ['Mon', 'Wed', 'Fri'],
     timesAvailable: '5:00 pm – 7:30 pm',
   },
   {
-    id: 'hitting-pitching',
-    name: 'Hitting + Pitching',
+    id: 'hitting-armcare-spt',
+    name: 'Hitting / Arm Care / Strength',
     category: 'adult',
-    basePrice2Day: 399,
+    basePrice2Day: 500,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(399, 3),
-    description: 'Dual focus on hitting and pitching development.',
+    options: build(400, 500, 600),
+    description: 'Triple Discipline: Full mix of hitting, arm care, and strength.',
     daysAvailable: ['Mon', 'Wed', 'Fri'],
-    timesAvailable: '5:00 pm – 7:00 pm',
+    timesAvailable: '5:00 pm – 7:30 pm',
   },
   {
     id: 'hitting-pitching-spt',
     name: 'Hitting / Pitching / Strength',
     category: 'adult',
-    basePrice2Day: 449,
+    basePrice2Day: 500,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(449, 3),
-    description: 'Complete training: hitting, pitching, and strength.',
+    options: build(400, 500, 600),
+    description: 'Triple Discipline: Complete training covering hitting, pitching, and strength.',
     daysAvailable: ['Mon', 'Wed', 'Fri'],
     timesAvailable: '5:00 pm – 7:30 pm',
   },
@@ -189,22 +100,142 @@ export const MEMBERSHIPS: Membership[] = [
     id: 'fielding-spt',
     name: 'Fielding and Strength',
     category: 'adult',
-    basePrice2Day: 349,
+    basePrice2Day: 400,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(349, 2),
-    description: 'Infield/outfield work plus weight room.',
+    options: build(300, 400, 500),
+    description: 'Performance Combo: Infield/outfield work plus weight room.',
+    daysAvailable: ['Tue', 'Thu'],
+    timesAvailable: '6:00 pm – 8:00 pm',
+  },
+
+  {
+    id: 'spt',
+    name: 'Strength',
+    category: 'adult',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(240, 320, 400),
+    description: 'Single Discipline: Weight room and athletic development only.',
+    daysAvailable: ['Mon', 'Wed', 'Fri'],
+    timesAvailable: '5:00 pm – 7:00 pm',
+  },
+  {
+    id: 'hitting',
+    name: 'Hitting',
+    category: 'adult',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(240, 320, 400),
+    description: 'Single Discipline: Cage work, exit velocity, and approach refinement.',
+    daysAvailable: ['Mon', 'Wed', 'Fri'],
+    timesAvailable: '5:00 pm – 7:00 pm',
+  },
+  {
+    id: 'pitching',
+    name: 'Pitching',
+    category: 'adult',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(240, 320, 400),
+    description: 'Single Discipline: Velocity development, mechanics, and arm care.',
+    daysAvailable: ['Mon', 'Wed', 'Fri'],
+    timesAvailable: '5:00 pm – 7:00 pm',
+  },
+
+  {
+    id: 'catching',
+    name: 'Catching Program',
+    category: 'adult',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(240, 320, 400),
+    description: 'Single Discipline: Receiving, blocking, and game-calling development.',
     daysAvailable: ['Tue', 'Thu'],
     timesAvailable: '6:00 pm – 8:00 pm',
   },
   {
-    id: 'youth-hitting-membership',
+    id: 'arm-care-development',
+    name: 'Arm Care & Development',
+    category: 'adult',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(240, 320, 400),
+    description: 'Single Discipline: Return-to-throw and injury prevention protocols.',
+    daysAvailable: ['Mon', 'Wed'],
+    timesAvailable: '5:00 pm – 6:30 pm',
+  },
+  {
+    id: 'baseline-membership',
+    name: 'Baseline Membership',
+    category: 'adult',
+    basePrice2Day: 50,
+    billingLabel: 'billed every 4 weeks',
+    options: [{ id: 'baseline', label: 'Baseline', daysPerWeek: 0, priceCents: 5000 }],
+    description: 'Entry-level access to the facility and basic resources.',
+  },
+  {
+    id: 'training-only-summer',
+    name: 'Training Only (Summer)',
+    category: 'adult',
+    basePrice2Day: 75,
+    billingLabel: 'billed every 4 weeks',
+    options: [{ id: 'summer-training', label: 'Summer session', daysPerWeek: 1, priceCents: 7500 }],
+    description: 'Limited seasonal training option during summer months.',
+  },
+
+  {
+    id: 'youth-spt',
+    name: 'Youth Strength',
+    category: 'youth',
+    basePrice2Day: 160,
+    billingLabel: 'billed every 4 weeks',
+    options: build(undefined, 160, undefined),
+    description: 'Youth Speed, Power & Throws sessions.',
+    daysAvailable: ['Tue', 'Thu'],
+    timesAvailable: '4:00 pm – 6:00 pm',
+  },
+  {
+    id: 'youth-hitting',
     name: 'Youth Hitting Membership',
     category: 'youth',
     basePrice2Day: 240,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(240, 2),
-    description: 'Age-appropriate hitting and cage work.',
+    options: build(undefined, 240, undefined),
+    description: 'Youth Hitting sessions.',
     daysAvailable: ['Tue', 'Thu'],
+    timesAvailable: '4:00 pm – 6:00 pm',
+  },
+  {
+    id: 'youth-pitching',
+    name: 'Youth Pitching Membership',
+    category: 'youth',
+    basePrice2Day: 240,
+    billingLabel: 'billed every 4 weeks',
+    options: build(undefined, 240, undefined),
+    description: 'Youth Pitching sessions.',
+    daysAvailable: ['Mon', 'Wed'],
+    timesAvailable: '4:00 pm – 5:30 pm',
+  },
+  {
+    id: 'youth-hitting-spt',
+    name: 'Youth Hitting + Strength',
+    category: 'youth',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(undefined, 320, undefined),
+    description: 'Combined Youth Hitting and Strength.',
+    daysAvailable: ['Tue', 'Thu'],
+    timesAvailable: '4:00 pm – 6:00 pm',
+  },
+  {
+    id: 'youth-pitching-spt',
+    name: 'Youth Pitching + Strength',
+    category: 'youth',
+    basePrice2Day: 320,
+    billingLabel: 'billed every 4 weeks',
+    options: build(undefined, 320, undefined),
+    description: 'Combined Youth Pitching and Strength.',
+    daysAvailable: ['Mon', 'Wed'],
     timesAvailable: '4:00 pm – 6:00 pm',
   },
   {
@@ -213,32 +244,10 @@ export const MEMBERSHIPS: Membership[] = [
     category: 'youth',
     basePrice2Day: 320,
     billingLabel: 'billed every 4 weeks',
-    options: buildOptions(320, 2),
-    description: 'Youth hitting and pitching combined.',
+    options: build(undefined, 320, undefined),
+    description: 'Combined Youth Hitting and Pitching.',
     daysAvailable: ['Mon', 'Wed', 'Fri'],
     timesAvailable: '4:00 pm – 6:00 pm',
-  },
-  {
-    id: 'youth-hitting-spt',
-    name: 'Youth Hitting + SPT Membership',
-    category: 'youth',
-    basePrice2Day: 320,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(320, 2),
-    description: 'Hitting and strength for youth athletes.',
-    daysAvailable: ['Tue', 'Thu'],
-    timesAvailable: '4:00 pm – 6:00 pm',
-  },
-  {
-    id: 'youth-pitching',
-    name: 'Youth Pitching',
-    category: 'youth',
-    basePrice2Day: 320,
-    billingLabel: 'billed every 4 weeks',
-    options: buildOptions(320, 2),
-    description: 'Pitching development for youth.',
-    daysAvailable: ['Mon', 'Wed'],
-    timesAvailable: '4:00 pm – 5:30 pm',
   },
   {
     id: 'remote-pitching-training',
@@ -246,14 +255,7 @@ export const MEMBERSHIPS: Membership[] = [
     category: 'remote',
     basePrice2Day: 250,
     billingLabel: 'billed every 4 weeks',
-    options: [
-      {
-        id: 'remote-2-day',
-        label: 'Remote program (2 days per week suggested)',
-        daysPerWeek: 2,
-        priceCents: dollarsToCents(250),
-      },
-    ],
+    options: [{ id: 'remote-2-day', label: 'Remote program (2 days per week suggested)', daysPerWeek: 2, priceCents: 25000 }],
     description: 'Video-based pitching program with coach check-ins.',
     daysAvailable: ['Flexible'],
     timesAvailable: 'By appointment',

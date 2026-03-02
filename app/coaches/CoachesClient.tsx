@@ -284,7 +284,7 @@ export function CoachesClient({
         }
         .coach-card:hover {
           transform: translateY(-3px);
-          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(234, 88, 12, 0.1);
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
           border-color: var(--surface-hover);
         }
         .coach-card-body {

@@ -145,7 +145,7 @@ export function EventBookingModal({
           </button>
         )}
         {!canBook && (
-          <div style={{ marginBottom: '1rem', padding: '0.75rem', background: 'rgba(234, 88, 12, 0.1)', border: '1px solid var(--accent)', borderRadius: 'var(--radius)' }}>
+          <div style={{ marginBottom: '1rem', padding: '0.75rem', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid var(--border)', borderRadius: 'var(--radius)' }}>
             <p style={{ margin: 0, fontSize: '0.9rem' }}>
               This slot requires <strong>{event.subscriptionTier}</strong> access. Your plan: <strong>{tierLabel(userTier)}</strong>.
             </p>

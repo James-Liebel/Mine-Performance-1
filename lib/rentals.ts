@@ -21,8 +21,8 @@ export const RENTAL_RESOURCES: RentalResource[] = [
       { label: '30 minutes', price: '$45' },
       { label: '60 minutes', price: '$65' },
     ],
-    openHour: 6,
-    closeHour: 23,
+    openHour: 8,
+    closeHour: 21,
   },
   {
     id: 'hitting-lab-2',

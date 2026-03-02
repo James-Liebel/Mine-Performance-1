@@ -68,7 +68,7 @@ export function ResultsClient({ data }: { data: LeaderboardData }) {
                 <tr
                   key={r.rank}
                   style={{
-                    background: r.isDemo ? 'rgba(234, 88, 12, 0.12)' : undefined,
+                    background: r.isDemo ? 'rgba(255, 255, 255, 0.06)' : undefined,
                     borderBottom: '1px solid var(--border)',
                   }}
                 >

@@ -64,7 +64,7 @@ function LoginForm() {
           />
         </div>
         {error && (
-          <p style={{ color: 'var(--accent)', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</p>
+          <p style={{ color: '#ef4444', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</p>
         )}
         <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%' }}>
           {loading ? 'Signing in…' : 'Sign in'}

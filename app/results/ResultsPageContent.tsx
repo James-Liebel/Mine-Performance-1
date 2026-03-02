@@ -124,31 +124,31 @@ export function ResultsPageContent() {
                 {commitsByYear.map(({ year, commits }) => (
                   <div key={year} id={`results-year-${year}`} className="results-year-block">
                     <h3 className="results-year-heading">{year}</h3>
-                  <ul className="results-commits-list results-commits-list--rows" role="list">
-                    {commits.map((c) => (
-                      <li key={c.id} className="card card-elevated results-commit-card results-commit-card--interactive">
-                        <div className="results-commit-inner">
-                          {c.imageUrl && (
-                            <div className="results-commit-image-wrap">
-                              <Image src={c.imageUrl} alt={c.athleteName ? `${c.athleteName} college` : 'College logo'} width={48} height={48} className="results-commit-image" unoptimized />
+                    <ul className="results-commits-list results-commits-list--rows" role="list">
+                      {commits.map((c) => (
+                        <li key={c.id} className="card card-elevated results-commit-card results-commit-card--interactive">
+                          <div className="results-commit-inner">
+                            {c.imageUrl && (
+                              <div className="results-commit-image-wrap">
+                                <Image src={c.imageUrl} alt={c.athleteName ? `${c.athleteName} college` : 'College logo'} width={48} height={48} className="results-commit-image" unoptimized />
+                              </div>
+                            )}
+                            <div className="results-commit-main">
+                              <span className="results-commit-name">{c.athleteName}</span>
+                              <span className="results-commit-college">{c.college}</span>
+                            </div>
+                          </div>
+                          {(c.year || c.position) && (
+                            <div className="results-commit-meta">
+                              {c.position && <span className="results-commit-position">{c.position}</span>}
+                              {c.division && <span className="results-commit-division">{DIVISION_LABELS[c.division]}</span>}
                             </div>
                           )}
-                          <div className="results-commit-main">
-                            <span className="results-commit-name">{c.athleteName}</span>
-                            <span className="results-commit-college">{c.college}</span>
-                          </div>
-                        </div>
-                        {(c.year || c.position) && (
-                          <div className="results-commit-meta">
-                            {c.position && <span className="results-commit-position">{c.position}</span>}
-                            {c.division && <span className="results-commit-division">{DIVISION_LABELS[c.division]}</span>}
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -207,7 +207,7 @@ export function ResultsPageContent() {
         }
         .results-commit-card--interactive:hover {
           transform: translateY(-3px);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(234, 88, 12, 0.15);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
           border-color: var(--surface-hover);
         }
         .results-commit-inner {
@@ -266,7 +266,7 @@ export function ResultsPageContent() {
         }
         .results-endorsement-card--interactive:hover {
           transform: translateY(-3px);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(234, 88, 12, 0.12);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
           border-color: var(--surface-hover);
         }
         .results-endorsement-quote {

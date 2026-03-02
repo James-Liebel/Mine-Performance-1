@@ -134,7 +134,7 @@ export function Filters({
         .filter-select:focus-visible {
           outline: none;
           border-color: var(--accent);
-          box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2);
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
         }
         .filter-select option {
           background: var(--surface);
