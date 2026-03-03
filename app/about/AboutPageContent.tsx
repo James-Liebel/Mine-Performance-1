@@ -6,8 +6,15 @@ import { CoachesClient, type Coach } from '@/app/coaches/CoachesClient';
 import { EditableContent } from '@/components/EditableContent';
 
 const basePath = typeof process !== 'undefined' ? (process.env.NEXT_PUBLIC_BASE_PATH || process.env.BASE_PATH || '') : '';
+const isStaticExport = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true' : false;
 
 function fetchCoaches(): Promise<Coach[]> {
+  if (isStaticExport) {
+    return fetch(`${basePath}/coaches-fallback.json`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => (Array.isArray(data) ? data : []))
+      .catch(() => []);
+  }
   return fetch(`${basePath}/api/coaches`)
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error('Not found'))))
     .then((data) => (Array.isArray(data) ? data : []))

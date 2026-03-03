@@ -26,6 +26,13 @@ export function ResultsPageContent() {
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(METRIC_ACCORDION_ITEMS[0].id);
 
   useEffect(() => {
+    const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+    if (typeof window === 'undefined' || isStaticExport) {
+      setCollegeCommits([]);
+      setEndorsements([]);
+      setLoading(false);
+      return;
+    }
     fetch('/api/results')
       .then((r) => r.json())
       .then((data) => {

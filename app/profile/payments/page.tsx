@@ -59,13 +59,20 @@ export default function ProfilePaymentsPage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('/api/member/me');
-        const json = await res.json();
-        if (!res.ok) {
-          throw new Error(json?.error || 'Failed to load payment info');
-        }
-        if (!cancelled) {
-          setData(json as MemberMeResponse);
+        const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+        if (typeof window === 'undefined' || isStaticExport) {
+          if (!cancelled) {
+            setData(null);
+          }
+        } else {
+          const res = await fetch('/api/member/me');
+          const json = await res.json();
+          if (!res.ok) {
+            throw new Error(json?.error || 'Failed to load payment info');
+          }
+          if (!cancelled) {
+            setData(json as MemberMeResponse);
+          }
         }
       } catch (e) {
         if (!cancelled) {
