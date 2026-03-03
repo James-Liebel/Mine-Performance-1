@@ -8,9 +8,8 @@ const nextConfig = {
     // Always serve images directly so static exports don't rely on /_next/image
     unoptimized: true,
   },
-  ...(isGhPages && {
-    output: 'export',
-  }),
+  // Always build as a static export so GitHub Pages workflows get an ./out directory
+  output: 'export',
   ...(basePath && { basePath, assetPrefix: basePath }),
   ...(!isGhPages && {
     async headers() {
