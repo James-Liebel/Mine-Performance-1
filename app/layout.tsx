@@ -30,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={dmSans.variable} data-theme="conversion">
-      <body className="font-theme-body">
+      <body className="font-theme-body overflow-x-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getLocalBusinessJsonLd()) }}
