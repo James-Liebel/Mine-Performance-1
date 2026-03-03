@@ -1,6 +1,19 @@
 /** @type {import('next').NextConfig} */
 const isGhPages = process.env.GITHUB_PAGES_DEPLOY === '1';
-const basePath = process.env.BASE_PATH || '';
+const repo = process.env.GITHUB_REPOSITORY?.split('/')[1] || '';
+const isActions = !!process.env.GITHUB_ACTIONS;
+
+let basePath = process.env.BASE_PATH || '';
+let assetPrefix;
+let trailingSlash = false;
+
+if (isActions && repo) {
+  basePath = `/${repo}`;
+  assetPrefix = `/${repo}/`;
+  trailingSlash = true;
+} else if (basePath) {
+  assetPrefix = basePath;
+}
 
 const nextConfig = {
   reactStrictMode: true,
@@ -10,7 +23,9 @@ const nextConfig = {
   },
   // Always build as a static export so GitHub Pages workflows get an ./out directory
   output: 'export',
-  ...(basePath && { basePath, assetPrefix: basePath }),
+  ...(basePath && { basePath }),
+  ...(assetPrefix && { assetPrefix }),
+  ...(trailingSlash && { trailingSlash: true }),
   ...(!isGhPages && {
     async headers() {
       return [
