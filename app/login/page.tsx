@@ -6,7 +6,9 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { EditableContent } from '@/components/EditableContent';
 
-function LoginForm() {
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+
+function LoginFormImpl() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -83,6 +85,35 @@ function LoginForm() {
       </p>
     </div>
   );
+}
+
+function StaticLoginDemo() {
+  return (
+    <div className="container" style={{ paddingTop: '2rem', paddingBottom: '3rem', maxWidth: '420px' }}>
+      <h1><EditableContent contentKey="login_heading" fallback="Admin demo" as="span" /></h1>
+      <p className="text-muted" style={{ marginBottom: '1.5rem' }}>
+        This static demo shows a sample admin profile without requiring a real login.
+      </p>
+      <div className="card card-elevated" style={{ padding: '1.5rem', marginBottom: '1.25rem' }}>
+        <p style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+          Click below to view a demo admin profile page. In production, this button will use secure login.
+        </p>
+        <Link href="/profile" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+          View admin profile demo
+        </Link>
+      </div>
+      <p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+        <Link href="/">Back to home</Link>
+      </p>
+    </div>
+  );
+}
+
+function LoginForm() {
+  if (isStaticExport) {
+    return <StaticLoginDemo />;
+  }
+  return <LoginFormImpl />;
 }
 
 export default function LoginPage() {

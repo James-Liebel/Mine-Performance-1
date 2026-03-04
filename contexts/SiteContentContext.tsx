@@ -3,6 +3,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { ThemeApplicator } from '@/components/ThemeApplicator';
+import { getSiteContent } from '@/lib/get-site-content';
 
 export type SiteContentContextValue = {
   content: Record<string, string>;
@@ -41,9 +42,8 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
 
   const refresh = useCallback(async () => {
     try {
-      const res = await fetch('/api/site-content');
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && typeof data === 'object' && data !== null) {
+      const data = await getSiteContent();
+      if (data && typeof data === 'object') {
         setContent(data);
       }
     } catch {

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { CreditsExplainer } from '@/components/CreditsExplainer';
 
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+
 interface Waiver {
   id: string;
   title: string;
@@ -73,7 +75,7 @@ function ProfileWaiverItem({
   );
 }
 
-export default function ProfileOverviewPage() {
+function ProfileOverviewPageImpl() {
   const { data: session } = useSession();
   const user = session?.user as { name?: string | null; email?: string | null; role?: string } | undefined;
   const isAdmin = user?.role === 'admin';
@@ -458,4 +460,93 @@ export default function ProfileOverviewPage() {
       )}
     </div>
   );
+}
+
+function StaticProfileDemo() {
+  const demoCredits = 12;
+  const demoHistory = [
+    { id: 'tx-1', amount: 8, reason: 'membership_grant', reference: 'Membership', createdAt: new Date().toISOString() },
+    { id: 'tx-2', amount: -4, reason: 'booking_spend', reference: 'Eval', createdAt: new Date().toISOString() },
+  ];
+
+  const formatTxDate = (iso: string) => {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch {
+      return iso;
+    }
+  };
+
+  const reasonLabel: Record<string, string> = {
+    stripe_purchase: 'Stripe purchase',
+    stripe_refund: 'Refund',
+    booking_spend: 'Event booking',
+    admin_adjustment: 'Admin adjustment',
+    membership_grant: 'Membership',
+    other: 'Other',
+  };
+
+  return (
+    <div className="container profile-overview" style={{ paddingTop: '1.5rem', paddingBottom: '3rem', maxWidth: '720px' }}>
+      <section id="credits" className="card card-elevated profile-section profile-section--credits-highlight">
+        <CreditsExplainer balance={demoCredits} />
+        <div className="credits-history" style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
+          <h3 style={{ margin: '0 0 0.75rem', fontSize: '1rem', fontWeight: 600 }}>Recent activity (demo)</h3>
+          <ul className="credits-history-list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {demoHistory.map((tx) => (
+              <li key={tx.id} className="credits-history-item">
+                <span className="credits-history-reason">
+                  {reasonLabel[tx.reason] ?? tx.reason}
+                  {tx.reference && <span className="credits-history-ref"> · {tx.reference}</span>}
+                </span>
+                <span className={tx.amount >= 0 ? 'credits-history-add' : 'credits-history-deduct'}>
+                  {tx.amount >= 0 ? '+' : ''}{tx.amount}
+                </span>
+                <span className="credits-history-date">{formatTxDate(tx.createdAt)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="card card-elevated profile-section">
+        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Admin profile (demo)</h2>
+        <p style={{ margin: '0 0 0.75rem', fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+          This static demo shows what an admin profile could look like. In production, this page displays your real account,
+          credits, and waivers after secure login.
+        </p>
+        <p style={{ margin: 0, fontSize: '0.95rem' }}>
+          <strong>Name:</strong> Demo Admin
+          <br />
+          <strong>Email:</strong> admin@mineperformance.com
+        </p>
+      </section>
+
+      <section className="card card-elevated profile-section profile-account-actions">
+        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Account actions (demo)</h2>
+        <div className="profile-account-buttons">
+          <button type="button" className="btn btn-secondary profile-account-btn" disabled>
+            ↻ Reset password
+          </button>
+          <button type="button" className="btn profile-account-btn profile-account-btn--danger" disabled>
+            🗑 Delete user
+          </button>
+        </div>
+      </section>
+
+      <p style={{ marginTop: '1.5rem' }}>
+        <Link href="/" className="btn btn-secondary">
+          Back to home
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+export default function ProfileOverviewPage() {
+  if (isStaticExport) {
+    return <StaticProfileDemo />;
+  }
+  return <ProfileOverviewPageImpl />;
 }

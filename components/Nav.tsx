@@ -7,10 +7,16 @@ import { useSession, signOut } from 'next-auth/react';
 import { Logo } from '@/components/Logo';
 import { PRIMARY_NAV_LINKS, linkIsActive } from '@/lib/nav-config';
 
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+
 export function Nav() {
   const pathname = usePathname();
-  const { data: session, status } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { data: session, status } = isStaticExport
+    ? { data: undefined, status: 'unauthenticated' as const }
+    : useSession();
+
   const user = session?.user as { role?: string; admin?: boolean } | undefined;
   const isAdmin = Boolean(user?.admin || user?.role === 'admin');
 
@@ -66,7 +72,15 @@ export function Nav() {
               </li>
             )}
             <li className="nav-item nav-item-cta">
-              {status === 'loading' ? (
+              {isStaticExport ? (
+                <Link
+                  href="/login"
+                  className={`nav-cta btn btn-primary${pathname === '/login' ? ' active' : ''}`}
+                  data-testid="nav-login"
+                >
+                  Admin demo
+                </Link>
+              ) : status === 'loading' ? (
                 <span className="nav-cta btn btn-primary" aria-hidden style={{ opacity: 0.7 }}>
                   …
                 </span>
