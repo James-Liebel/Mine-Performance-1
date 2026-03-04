@@ -16,14 +16,15 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
   const router = useRouter();
   const pathname = usePathname();
   const isDev = process.env.NODE_ENV !== 'production';
+  const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
 
   useEffect(() => {
-    if (!isDev && status === 'unauthenticated') {
+    if (!isStaticExport && !isDev && status === 'unauthenticated') {
       router.replace('/login?callbackUrl=/profile');
     }
-  }, [status, router, isDev]);
+  }, [status, router, isDev, isStaticExport]);
 
-  if (status === 'loading') {
+  if (!isStaticExport && status === 'loading') {
     return (
       <div className="container" style={{ paddingTop: '3rem' }}>
         <p>Loading…</p>
@@ -31,7 +32,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     );
   }
 
-  if (!session?.user && !isDev) {
+  if (!isStaticExport && !session?.user && !isDev) {
     return null;
   }
 

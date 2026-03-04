@@ -18,6 +18,8 @@ export function Nav() {
 
   const user = session?.user as { role?: string; admin?: boolean } | undefined;
   const isAdmin = Boolean(user?.admin || user?.role === 'admin');
+  const showAdminNav = isStaticExport || isAdmin;
+  const adminHref = isStaticExport ? '/profile' : '/admin';
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -60,11 +62,11 @@ export function Nav() {
                 </Link>
               </li>
             ))}
-            {isAdmin && (
+            {showAdminNav && (
               <li className="nav-item">
                 <Link
-                  href="/admin"
-                  className={`nav-link${pathname?.startsWith('/admin') ? ' active' : ''}`}
+                  href={adminHref}
+                  className={`nav-link${pathname?.startsWith('/admin') || pathname?.startsWith('/profile') ? ' active' : ''}`}
                 >
                   Admin
                 </Link>
