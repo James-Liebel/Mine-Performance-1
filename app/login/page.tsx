@@ -90,19 +90,19 @@ function LoginFormImpl() {
 function StaticLoginDemo() {
   return (
     <div className="container" style={{ paddingTop: '2rem', paddingBottom: '3rem', maxWidth: '420px' }}>
-      <h1><EditableContent contentKey="login_heading" fallback="Admin demo" as="span" /></h1>
+      <h1><EditableContent contentKey="login_heading" fallback="Login" as="span" /></h1>
       <p className="text-muted" style={{ marginBottom: '1.5rem' }}>
-        This static demo shows a sample admin profile without requiring a real login.
+        You are already logged in as an admin in this demo. Use the links below to explore.
       </p>
-      <div className="card card-elevated" style={{ padding: '1.5rem', marginBottom: '1.25rem' }}>
-        <p style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-muted)' }}>
-          Click below to view a demo admin profile page. In production, this button will use secure login.
-        </p>
-        <Link href="/profile" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-          View admin profile demo
+      <div className="card card-elevated" style={{ padding: '1.5rem', marginBottom: '1rem' }}>
+        <Link href="/admin" className="btn btn-primary" style={{ width: '100%', marginBottom: '0.75rem' }}>
+          Admin dashboard
+        </Link>
+        <Link href="/profile" className="btn btn-secondary" style={{ width: '100%' }}>
+          View profile
         </Link>
       </div>
-      <p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+      <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
         <Link href="/">Back to home</Link>
       </p>
     </div>

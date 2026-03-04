@@ -464,16 +464,32 @@ function ProfileOverviewPageImpl() {
 }
 
 function StaticProfileDemo() {
-  const demoCredits = 12;
+  const demoCredits = 25;
   const demoHistory = [
-    { id: 'tx-1', amount: 8, reason: 'membership_grant', reference: 'Membership', createdAt: new Date().toISOString() },
-    { id: 'tx-2', amount: -4, reason: 'booking_spend', reference: 'Eval', createdAt: new Date().toISOString() },
+    { id: 'tx-1', amount: 10, reason: 'stripe_purchase', reference: 'Pitching 3-day', createdAt: '2026-02-28T14:30:00Z' },
+    { id: 'tx-2', amount: 8, reason: 'membership_grant', reference: 'Membership renewal', createdAt: '2026-02-25T09:00:00Z' },
+    { id: 'tx-3', amount: -4, reason: 'booking_spend', reference: 'Open Cage Session', createdAt: '2026-02-22T16:15:00Z' },
+    { id: 'tx-4', amount: -2, reason: 'booking_spend', reference: 'Velocity Assessment', createdAt: '2026-02-18T10:00:00Z' },
+    { id: 'tx-5', amount: 5, reason: 'admin_adjustment', reference: 'Promo credit', createdAt: '2026-02-15T11:30:00Z' },
+  ];
+
+  const demoWaivers = [
+    { id: 'w-1', title: 'Waiver of Liability and Hold Harmless Agreement', body: 'By signing, you acknowledge and accept the inherent risks involved in athletic training.', signedAt: '2026-01-15T10:00:00Z' },
+    { id: 'w-2', title: 'Photo / Video Release', body: 'You grant Mine Performance Academy permission to use photographs and video for promotional purposes.', signedAt: '2026-01-15T10:02:00Z' },
+    { id: 'w-3', title: 'Medical Information Disclosure', body: 'You agree to disclose any relevant medical conditions or injuries that could affect training.', signedAt: null },
   ];
 
   const formatTxDate = (iso: string) => {
     try {
-      const d = new Date(iso);
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch {
+      return iso;
+    }
+  };
+
+  const formatSignedDate = (iso: string) => {
+    try {
+      return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
     } catch {
       return iso;
     }
@@ -490,16 +506,17 @@ function StaticProfileDemo() {
 
   return (
     <div className="container profile-overview" style={{ paddingTop: '1.5rem', paddingBottom: '3rem', maxWidth: '720px' }}>
+      {/* Credits */}
       <section id="credits" className="card card-elevated profile-section profile-section--credits-highlight">
         <CreditsExplainer balance={demoCredits} />
         <div className="credits-history" style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
-          <h3 style={{ margin: '0 0 0.75rem', fontSize: '1rem', fontWeight: 600 }}>Recent activity (demo)</h3>
+          <h3 style={{ margin: '0 0 0.75rem', fontSize: '1rem', fontWeight: 600 }}>Recent activity</h3>
           <ul className="credits-history-list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {demoHistory.map((tx) => (
               <li key={tx.id} className="credits-history-item">
                 <span className="credits-history-reason">
                   {reasonLabel[tx.reason] ?? tx.reason}
-                  {tx.reference && <span className="credits-history-ref"> · {tx.reference}</span>}
+                  {tx.reference && <span className="credits-history-ref"> &middot; {tx.reference}</span>}
                 </span>
                 <span className={tx.amount >= 0 ? 'credits-history-add' : 'credits-history-deduct'}>
                   {tx.amount >= 0 ? '+' : ''}{tx.amount}
@@ -511,21 +528,135 @@ function StaticProfileDemo() {
         </div>
       </section>
 
+      {/* Personal information */}
       <section className="card card-elevated profile-section">
-        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Admin profile (demo)</h2>
-        <p style={{ margin: '0 0 0.75rem', fontSize: '0.95rem', color: 'var(--text-muted)' }}>
-          This static demo shows what an admin profile could look like. In production, this page displays your real account,
-          credits, and waivers after secure login.
-        </p>
-        <p style={{ margin: 0, fontSize: '0.95rem' }}>
-          <strong>Name:</strong> Demo Admin
-          <br />
-          <strong>Email:</strong> admin@mineperformance.com
-        </p>
+        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Personal information</h2>
+        <div className="profile-picture-row">
+          <div className="profile-picture-placeholder" aria-hidden>
+            <span style={{ opacity: 0.5 }}>👤</span>
+          </div>
+          <div className="profile-picture-field form-group" style={{ flex: 1 }}>
+            <label className="form-label">Profile picture</label>
+            <input type="text" className="form-input" placeholder="Upload here..." readOnly style={{ background: 'var(--surface)' }} />
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="form-label">Birthday</label>
+          <input type="text" className="form-input" defaultValue="06/15/1998" readOnly style={{ background: 'var(--surface)' }} />
+        </div>
+        <div className="profile-form-row">
+          <div className="form-group">
+            <label className="form-label">First name</label>
+            <input type="text" className="form-input" defaultValue="Ryan" readOnly style={{ background: 'var(--surface)' }} />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Last name</label>
+            <input type="text" className="form-input" defaultValue="Hollingsworth" readOnly style={{ background: 'var(--surface)' }} />
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="form-label">Email</label>
+          <input type="email" className="form-input" defaultValue="admin@mineperformance.com" readOnly style={{ background: 'var(--surface)' }} />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Phone</label>
+          <input type="tel" className="form-input" defaultValue="(513) 384-3840" readOnly style={{ background: 'var(--surface)' }} />
+        </div>
       </section>
 
+      {/* Family members */}
+      <section className="card card-elevated profile-section">
+        <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.15rem' }}>Add family members</h2>
+        <p style={{ margin: '0 0 1rem', fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+          Add family members as linked users to checkout and sign up for events on behalf of other users.
+        </p>
+        <ul className="profile-family-list" style={{ listStyle: 'none', padding: 0, margin: '0 0 1rem' }}>
+          <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+            <span aria-hidden style={{ color: 'var(--text-muted)' }}>🔗</span>
+            <span>Ryan Hollingsworth</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>(513) 384-3840</span>
+          </li>
+          <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+            <span aria-hidden style={{ color: 'var(--text-muted)' }}>🔗</span>
+            <span>Tyler Martin</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>(513) 555-0001</span>
+          </li>
+        </ul>
+      </section>
+
+      {/* User type */}
+      <section className="card card-elevated profile-section">
+        <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.15rem' }}>Change user type</h2>
+        <p style={{ margin: '0 0 1rem', fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+          Are you a parent or an athlete? Set this to what you are and use the linked user feature to act on behalf of other users.
+        </p>
+        <div className="form-group">
+          <select className="form-input" defaultValue="athlete" disabled style={{ maxWidth: '200px' }}>
+            <option value="athlete">Athlete</option>
+            <option value="parent">Parent</option>
+          </select>
+        </div>
+      </section>
+
+      {/* Notifications */}
+      <section className="card card-elevated profile-section">
+        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Notifications</h2>
+        {[
+          { label: 'Google Calendar', desc: 'Sync your events with Google Calendar.', on: false },
+          { label: 'Alerts', desc: 'Important notifications and admin updates.', on: true },
+          { label: 'Reminders', desc: 'Reminders for scheduled events and payments.', on: true },
+          { label: 'Promos', desc: 'Receive exclusive offers from our partner companies.', on: true },
+          { label: 'Email', desc: 'Receive your admin updates via email.', on: true },
+          { label: 'SMS', desc: 'Do you agree to receive text messages from Mine Performance Academy.', on: true },
+        ].map(({ label, desc, on }) => (
+          <div key={label} className="profile-notification-row">
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, fontSize: '0.95rem' }}>{label}</p>
+              <p style={{ margin: '0.25rem 0 0', fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.4 }}>{desc}</p>
+            </div>
+            <span className={`profile-toggle${on ? ' profile-toggle--on' : ''}`} style={{ pointerEvents: 'none' }}>
+              <span className="profile-toggle-label">{on ? 'Yes' : 'No'}</span>
+            </span>
+          </div>
+        ))}
+      </section>
+
+      {/* Waivers */}
+      <section className="card card-elevated profile-section">
+        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Waivers &amp; contracts</h2>
+        <p style={{ margin: '0 0 1rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+          Each waiver shows whether it is signed or unsigned.
+        </p>
+        {demoWaivers.map((w) => (
+          <div key={w.id} className="profile-waiver-item card card-elevated">
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', marginBottom: '0.5rem' }}>
+              <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{w.title}</h4>
+              <span className={`profile-waiver-status ${w.signedAt ? 'profile-waiver-status--signed' : 'profile-waiver-status--unsigned'}`}>
+                {w.signedAt ? 'Signed' : 'Unsigned'}
+              </span>
+            </div>
+            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              {w.body}
+              {w.signedAt && <> E-signed on {formatSignedDate(w.signedAt)} on behalf of Ryan Hollingsworth.</>}
+            </p>
+            <div style={{ marginTop: '0.75rem' }}>
+              {w.signedAt ? (
+                <button type="button" className="profile-waiver-download" aria-label="Download waiver" disabled>
+                  <span aria-hidden>↓</span> Download
+                </button>
+              ) : (
+                <button type="button" className="btn btn-primary" style={{ fontSize: '0.85rem' }} disabled>
+                  Sign waiver (demo)
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Account actions */}
       <section className="card card-elevated profile-section profile-account-actions">
-        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Account actions (demo)</h2>
+        <h2 style={{ margin: '0 0 1rem', fontSize: '1.15rem' }}>Account actions</h2>
         <div className="profile-account-buttons">
           <button type="button" className="btn btn-secondary profile-account-btn" disabled>
             ↻ Reset password
@@ -537,8 +668,8 @@ function StaticProfileDemo() {
       </section>
 
       <p style={{ marginTop: '1.5rem' }}>
-        <Link href="/" className="btn btn-secondary">
-          Back to home
+        <Link href="/admin" className="btn btn-secondary">
+          Admin dashboard
         </Link>
       </p>
     </div>

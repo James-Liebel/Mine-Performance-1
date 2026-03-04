@@ -29,13 +29,22 @@ function formatDateShort(dateStr: string) {
   return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+
+const DEMO_BOOKINGS: MemberBookingItem[] = [
+  { eventId: 'demo-1', date: '2026-03-05', startTime: '09:00', endTime: '10:00', title: 'Open Cage Session', type: 'clinic', program: 'General', location: 'Main facility', athleteName: 'Ryan Hollingsworth', bookedAt: '2026-02-28T10:00:00Z', status: 'upcoming', canCancel: true },
+  { eventId: 'demo-2', date: '2026-03-08', startTime: '14:00', endTime: '15:30', title: 'Pitching Lab — Advanced', type: 'clinic', program: 'Pitching', location: 'Lab 1', athleteName: 'Ryan Hollingsworth', bookedAt: '2026-02-28T10:00:00Z', status: 'upcoming', canCancel: true },
+  { eventId: 'demo-3', date: '2026-03-12', startTime: '08:00', endTime: '09:00', title: 'Velocity Assessment', type: 'assessment', program: 'Pitching', location: 'Lab 1', athleteName: 'Ryan Hollingsworth', bookedAt: '2026-02-20T10:00:00Z', status: 'upcoming', canCancel: false },
+  { eventId: 'demo-4', date: '2026-02-25', startTime: '10:00', endTime: '11:30', title: 'Youth Hitting Camp', type: 'camp', program: 'Hitting', location: 'Main facility', athleteName: 'Tyler Martin', bookedAt: '2026-02-15T10:00:00Z', status: 'past', canCancel: false },
+];
+
 export default function ProfileCalendarPage() {
   const [viewDate, setViewDate] = useState(() => {
     const d = new Date();
     return new Date(d.getFullYear(), d.getMonth(), 1);
   });
-  const [events, setEvents] = useState<MemberBookingItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState<MemberBookingItem[]>(isStaticExport ? DEMO_BOOKINGS : []);
+  const [loading, setLoading] = useState(!isStaticExport);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -43,6 +52,7 @@ export default function ProfileCalendarPage() {
   const [cancellingId, setCancellingId] = useState<string | null>(null);
 
   const fetchBookings = useCallback(async () => {
+    if (isStaticExport) return;
     setLoading(true);
     setError(null);
     try {

@@ -19,7 +19,7 @@ export function Nav() {
   const user = session?.user as { role?: string; admin?: boolean } | undefined;
   const isAdmin = Boolean(user?.admin || user?.role === 'admin');
   const showAdminNav = isStaticExport || isAdmin;
-  const adminHref = isStaticExport ? '/profile' : '/admin';
+  const adminHref = '/admin';
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -66,7 +66,7 @@ export function Nav() {
               <li className="nav-item">
                 <Link
                   href={adminHref}
-                  className={`nav-link${pathname?.startsWith('/admin') || pathname?.startsWith('/profile') ? ' active' : ''}`}
+                  className={`nav-link${pathname?.startsWith('/admin') ? ' active' : ''}`}
                 >
                   Admin
                 </Link>
@@ -75,11 +75,10 @@ export function Nav() {
             <li className="nav-item nav-item-cta">
               {isStaticExport ? (
                 <Link
-                  href="/login"
-                  className={`nav-cta btn btn-primary${pathname === '/login' ? ' active' : ''}`}
-                  data-testid="nav-login"
+                  href="/profile"
+                  className={`nav-cta btn btn-primary${pathname?.startsWith('/profile') ? ' active' : ''}`}
                 >
-                  Admin demo
+                  Profile
                 </Link>
               ) : status === 'loading' ? (
                 <span className="nav-cta btn btn-primary" aria-hidden style={{ opacity: 0.7 }}>

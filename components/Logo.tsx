@@ -3,10 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { IMAGES } from '@/lib/images';
+import { LogoMark } from '@/components/LogoMark';
 
 export function Logo() {
-  const logo = IMAGES.logo;
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -14,17 +13,16 @@ export function Logo() {
       <span className="nav-logo-mark" aria-hidden>
         {!imgError ? (
           <Image
-            src={logo.src}
-            alt={logo.alt}
-            width={logo.width}
-            height={logo.height}
+            src="/mp-logo.png"
+            alt="Mine Performance logo"
+            width={36}
+            height={36}
             className="nav-logo-image"
-            style={{ objectFit: 'contain' }}
             unoptimized
             onError={() => setImgError(true)}
           />
         ) : (
-          <span className="nav-logo-fallback" aria-hidden style={{ fontSize: '1.25rem', fontWeight: 700, color: 'inherit' }}>M</span>
+          <LogoMark className="nav-logo-image" />
         )}
       </span>
       <span className="nav-logo-text">Mine Performance</span>

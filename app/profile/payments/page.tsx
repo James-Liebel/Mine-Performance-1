@@ -48,31 +48,42 @@ const REASON_LABEL: Record<CreditReason, string> = {
   other: 'Other',
 };
 
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+
+const DEMO_MEMBER_DATA: MemberMeResponse = {
+  email: 'admin@mineperformance.com',
+  name: 'Ryan Hollingsworth',
+  credits: 25,
+  membershipId: 'pitching-3day',
+  creditHistory: [
+    { id: 'tx-1', amount: 10, reason: 'stripe_purchase', reference: 'Pitching 3-day', createdAt: '2026-02-28T14:30:00Z' },
+    { id: 'tx-2', amount: 8, reason: 'membership_grant', reference: 'Membership renewal', createdAt: '2026-02-25T09:00:00Z' },
+    { id: 'tx-3', amount: -4, reason: 'booking_spend', reference: 'Open Cage Session', createdAt: '2026-02-22T16:15:00Z' },
+    { id: 'tx-4', amount: -2, reason: 'booking_spend', reference: 'Velocity Assessment', createdAt: '2026-02-18T10:00:00Z' },
+    { id: 'tx-5', amount: 5, reason: 'admin_adjustment', reference: 'Promo credit', createdAt: '2026-02-15T11:30:00Z' },
+    { id: 'tx-6', amount: 8, reason: 'stripe_purchase', reference: 'Pitching 3-day', createdAt: '2026-02-01T10:00:00Z' },
+  ],
+};
+
 export default function ProfilePaymentsPage() {
-  const [data, setData] = useState<MemberMeResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<MemberMeResponse | null>(isStaticExport ? DEMO_MEMBER_DATA : null);
+  const [loading, setLoading] = useState(!isStaticExport);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (isStaticExport) return;
     let cancelled = false;
     (async () => {
       setLoading(true);
       setError(null);
       try {
-        const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
-        if (typeof window === 'undefined' || isStaticExport) {
-          if (!cancelled) {
-            setData(null);
-          }
-        } else {
-          const res = await fetch('/api/member/me');
-          const json = await res.json();
-          if (!res.ok) {
-            throw new Error(json?.error || 'Failed to load payment info');
-          }
-          if (!cancelled) {
-            setData(json as MemberMeResponse);
-          }
+        const res = await fetch('/api/member/me');
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json?.error || 'Failed to load payment info');
+        }
+        if (!cancelled) {
+          setData(json as MemberMeResponse);
         }
       } catch (e) {
         if (!cancelled) {

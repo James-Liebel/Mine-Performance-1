@@ -38,7 +38,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
 
   const user =
     (session?.user as { name?: string | null; role?: string } | undefined) ??
-    { name: 'Demo member', role: 'member' };
+    (isStaticExport ? { name: 'Ryan Hollingsworth', role: 'admin' } : { name: 'Demo member', role: 'member' });
 
   return (
     <div className="profile-layout">
