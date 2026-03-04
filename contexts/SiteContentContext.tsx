@@ -1,9 +1,9 @@
 'use client';
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { ThemeApplicator } from '@/components/ThemeApplicator';
 import { getSiteContent } from '@/lib/get-site-content';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 export type SiteContentContextValue = {
   content: Record<string, string>;
@@ -34,7 +34,7 @@ const BODY_OPTIONS = [
 ];
 
 export function SiteContentProvider({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSafeSession();
   const [content, setContent] = useState<Record<string, string>>({});
   const [editMode, setEditMode] = useState(false);
   const [themeModalOpen, setThemeModalOpen] = useState(false);

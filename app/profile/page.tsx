@@ -1,9 +1,10 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { CreditsExplainer } from '@/components/CreditsExplainer';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
 
@@ -76,7 +77,7 @@ function ProfileWaiverItem({
 }
 
 function ProfileOverviewPageImpl() {
-  const { data: session } = useSession();
+  const { data: session } = useSafeSession();
   const user = session?.user as { name?: string | null; email?: string | null; role?: string } | undefined;
   const isAdmin = user?.role === 'admin';
 

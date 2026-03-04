@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import { MEMBERSHIPS, type Membership, type MembershipOption } from '@/lib/memberships';
 import { TrainingOptionsGrid } from '@/components/TrainingOptionsGrid';
 import { MembershipModal } from '@/components/MembershipModal';
 import { EditableContent } from '@/components/EditableContent';
 import { CreditsExplainer } from '@/components/CreditsExplainer';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 const MEMBER_REG_CALLBACK = '/member-registration';
 
@@ -18,7 +18,7 @@ interface ModalState {
 }
 
 export default function MemberRegistrationPage() {
-  const { data: session } = useSession();
+  const { data: session } = useSafeSession();
   const isLoggedIn = !!session?.user;
   const [memberships, setMemberships] = useState<Membership[]>(MEMBERSHIPS);
   const [modal, setModal] = useState<ModalState>({

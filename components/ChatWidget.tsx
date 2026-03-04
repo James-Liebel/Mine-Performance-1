@@ -2,10 +2,10 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 import { FAQ_ENTRIES } from '@/content/faq';
 import { matchFAQ, hasHighConfidence } from '@/lib/faq-matcher';
 import type { FAQEntry } from '@/content/faq';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 type MessageRole = 'user' | 'assistant';
 
@@ -58,7 +58,7 @@ function CloseIcon() {
 }
 
 export function ChatWidget() {
-  const { data: session } = useSession();
+  const { data: session } = useSafeSession();
   const isAdmin = (session?.user as { role?: string })?.role === 'admin';
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);

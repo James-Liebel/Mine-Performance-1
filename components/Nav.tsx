@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { Logo } from '@/components/Logo';
 import { PRIMARY_NAV_LINKS, linkIsActive } from '@/lib/nav-config';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
 
@@ -13,9 +14,7 @@ export function Nav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const sessionHook = useSession();
-  const session = isStaticExport ? undefined : sessionHook.data;
-  const status = isStaticExport ? ('unauthenticated' as const) : sessionHook.status;
+  const { data: session, status } = useSafeSession();
 
   const user = session?.user as { role?: string; admin?: boolean } | undefined;
   const isAdmin = Boolean(user?.admin || user?.role === 'admin');

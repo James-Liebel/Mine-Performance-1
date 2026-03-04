@@ -1,11 +1,11 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { AdminCalendar, type AdminCalendarEvent } from '@/components/AdminCalendar';
 import { AdminConfirmModal } from '../components/AdminConfirmModal';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 type RepeatKind = 'none' | 'daily' | 'weekly';
 
@@ -44,7 +44,7 @@ function formatEventDate(dateStr: string) {
 }
 
 export default function AdminEventsPage() {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSafeSession();
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
   const [calendarEvents, setCalendarEvents] = useState<AdminCalendarEvent[]>([]);

@@ -1,9 +1,9 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { useSafeSession } from '@/lib/useSafeSession';
 
 const PROFILE_TABS = [
   { href: '/profile', label: 'Profile' },
@@ -12,7 +12,7 @@ const PROFILE_TABS = [
 ];
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSafeSession();
   const router = useRouter();
   const pathname = usePathname();
   const isDev = process.env.NODE_ENV !== 'production';
