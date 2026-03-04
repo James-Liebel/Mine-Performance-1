@@ -13,9 +13,9 @@ export function Nav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { data: session, status } = isStaticExport
-    ? { data: undefined, status: 'unauthenticated' as const }
-    : useSession();
+  const sessionHook = useSession();
+  const session = isStaticExport ? undefined : sessionHook.data;
+  const status = isStaticExport ? ('unauthenticated' as const) : sessionHook.status;
 
   const user = session?.user as { role?: string; admin?: boolean } | undefined;
   const isAdmin = Boolean(user?.admin || user?.role === 'admin');
