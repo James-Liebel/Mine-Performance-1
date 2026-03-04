@@ -29,6 +29,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
+      BASE_PATH: "/${{ github.event.repository.name }}"
       NEXT_PUBLIC_STATIC_EXPORT: "true"
     steps:
       - name: Checkout
